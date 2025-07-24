@@ -12,13 +12,10 @@ def multiples_3_and_5(limit: int) -> int:
         limit (int)
 
     Returns:
-        str
+        int
     """
     total = 0
     for i in range(1, limit + 1):
         if i % 3 == 0 or i % 5 == 0:
             total += i
     return total
-
-
-print(multiples_3_and_5(1000))

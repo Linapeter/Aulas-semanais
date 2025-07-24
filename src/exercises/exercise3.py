@@ -1,6 +1,14 @@
 # Exercise 1: Fibonnaci Sequence Sum of even-valued terms
 
-def sum_even_fibonacci(limit):
+def sum_even_fibonacci(limit:int) -> int:
+    """This function returns the sum of even-valued terms until limit
+
+    Args:
+        limit (int)
+
+    Returns:
+        int
+    """
     fn1,fn2 = 1, 2
     even_terms = 0
 
