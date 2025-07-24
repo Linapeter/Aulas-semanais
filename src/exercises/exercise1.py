@@ -15,7 +15,7 @@ def multiples_3_and_5(limit: int) -> int:
         int
     """
     total = 0
-    for i in range(1, limit + 1):
+    for i in range(1, limit):
         if i % 3 == 0 or i % 5 == 0:
             total += i
     return total

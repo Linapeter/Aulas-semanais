@@ -1,12 +1,12 @@
-# Exercício 2
+# Exercise 2
 
 # Students Class created to receive name and grade
-class students:
+class School:
     list_students = []
     def __init__(self,name,grade: str,int) -> None:
         self.name = name
         self.grade = int(grade)
-        students.list_students.append((self.grade, self.name))
+        School.list_students.append((self.grade, self.name))
 
     def get_name(self) -> str:
         return self.name
@@ -21,10 +21,10 @@ class students:
 
     # Sorting students by grade and name
     def sort_students(self)-> list[Any]:
-        sorted_list = sorted(students.list_students, key=lambda x: (x[0], x[1]))
+        sorted_list = sorted(School.list_students, key=lambda x: (x[0], x[1]))
         return [x[1] for x in sorted_list]
 
 # Function to return students by grade
 def by_grade(grade) -> list[Any]:
-    in_grade = sorted(students.list_students, key=lambda x: x[0])
+    in_grade = sorted(School.list_students, key=lambda x: x[0])
     return [x[1] for x in in_grade if x[0] == grade]
