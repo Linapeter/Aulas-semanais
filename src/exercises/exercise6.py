@@ -23,10 +23,11 @@ class ListOps():
     def __repr__(self) -> str:
         return f"List = {self.objects}"
 
-    def append(self,new_objects: list[Any]) -> list[Any]:
+    def append(self,*new_objects: list[Any]) -> list[Any]:
         """given two lists, add all items in the second list to the end of the first list
         """
-        self.objects += new_objects
+        for lst in new_objects:
+            self.objects += lst
         return self.objects
 
     def concat(self,series_of_list: list[list[Any]]) -> list[Any]:
@@ -65,22 +66,3 @@ class ListOps():
         """given a list, return a list with all the original items, but in reversed order
         """
         return [reversed(self.objects)]
-
-# Tests
-
-def condition(number_cond: int) -> bool:
-    if number_cond > 5:
-        return True
-    return False                # Não precisa de else
-l1 = [3,4,5,6,7,8]
-list1 = ListOps(l1)
-print(list1.filter(condition))
-print(list1.get())
-
-def substract1(number_ex:int)-> int:
-    return number_ex - 1
-print(list1.map(substract1))
-
-def substract(x:int,y:int)-> Any:
-    return x-y
-
