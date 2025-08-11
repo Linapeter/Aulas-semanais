@@ -1,4 +1,5 @@
-from exercises.exercise5 import (largest_prime)
+from exercises.exercise5 import largest_prime
+
 
 def test_exercise5() -> None:
     assert 31 == largest_prime(1395)
