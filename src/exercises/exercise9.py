@@ -9,10 +9,10 @@
 
 from functools import reduce
 
-from exercise5 import largest_prime
+from exercises.exercise5 import largest_prime
 
 
-def evenly_divisible(limit: int) -> list[int]:
+def evenly_divisible(limit: int) -> int:
     """Find the smallest positive number that is evenly divisible by all of the numbers from 1 to limit.
 
     Args:
@@ -30,5 +30,3 @@ def evenly_divisible(limit: int) -> list[int]:
             acc = reduce(lambda x, y: x * y, multiples)
 
     return acc
-
-print(evenly_divisible(20))
