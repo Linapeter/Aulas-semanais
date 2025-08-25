@@ -11,7 +11,6 @@ from functools import reduce
 
 from exercises.exercise5 import largest_prime
 
-
 def evenly_divisible(limit: int) -> int:
     """Find the smallest positive number that is evenly divisible by all of the numbers from 1 to limit.
 
@@ -22,7 +21,8 @@ def evenly_divisible(limit: int) -> int:
         list[int]: smallest number that is evenly divisible by all numbers from 1 to limit
     """
     multiples:list[int] = []
-    acc: int = 1
+    acc = 1
+
     for i in range(1, limit+1):
         if acc % i != 0:
             lp = largest_prime(i)
