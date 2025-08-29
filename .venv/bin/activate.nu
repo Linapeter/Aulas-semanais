@@ -32,7 +32,7 @@ export-env {
       }
     }
 
-    let virtual_env = r#'/home/lina/Documentos/Aulas semanais/.venv'#
+    let virtual_env = r#'/home/lina/Documentos/Aulas_semanais/.venv'#
     let bin = r#'bin'#
 
     let is_windows = ($nu.os-info.family) == 'windows'

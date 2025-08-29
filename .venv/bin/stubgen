@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' '/home/lina/Documentos/Aulas semanais/.venv/bin/python' "$0" "$@"
-' '''
+#!/home/lina/Documentos/Aulas_semanais/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
