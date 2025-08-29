@@ -1,16 +1,25 @@
+from exercises.exercise5 import largest_prime
 
-def prime_in_position(position:int) -> int:
+
+def prime_in_position(position: int) -> int:
+    """Returns the prime factor in position of choice
+
+    Args:
+        position (int): position of the factor prime
+
+    Returns:
+        int: factor prime
+    """
     counter = 1
-    isPrime: bool = True
-    j:int = 0
-    primes = [2]
-    while len(primes) < position:
-        counter += 2 #ímpares
-        while (primes[j]*primes[j] <= counter):
-            if counter % primes[j] == 0:
-                isPrime = False
-    if isPrime:
-        primes.append(counter)
-    return primes[position]
+    index = 1
+    some_number_prime = largest_prime(index)  # 2
 
-print(prime_in_position(6))
+    while counter <= position:
+        index += 1
+        possible_next = largest_prime(index)
+
+        if possible_next > some_number_prime:
+            counter += 1
+            some_number_prime = possible_next
+
+    return some_number_prime

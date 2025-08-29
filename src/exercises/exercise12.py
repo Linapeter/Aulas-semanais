@@ -4,14 +4,14 @@ from functools import reduce
 def translateROT(value: str, key: int, alphabet: str) -> list[str]:
     cipher = alphabet[key:] + alphabet[:key]
     translation: list[str] = []
-    position = [
-        idx
-        for idx, letter in enumerate(alphabet.upper() if value.isupper() is True else alphabet)
-        if letter == value
-    ]
-
-    for id in position:
-        translation.append(cipher[id].upper() if value.isupper() is True else cipher[id])
+    if value.isupper():
+        for idx, letter in enumerate(alphabet.upper()):
+            if letter == value:
+                translation.append(cipher[idx].upper())
+    if value.islower():
+        for idx, letter in enumerate(alphabet):
+            if letter == value:
+                translation.append(cipher[idx])
 
     return translation
 
@@ -27,3 +27,5 @@ def rotate(text: str, key: int) -> str:
 
     return reduce(lambda x, y: x + y, translation)
 
+print(rotate("O",5))
+print(rotate("n",5))
