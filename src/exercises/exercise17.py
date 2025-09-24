@@ -1,4 +1,7 @@
-import math
+from __future__ import annotations
+
+from math import cos, exp, sin, sqrt
+from typing import Any
 
 # https://satish-p.medium.com/the-magic-of-python-a-comprehensive-guide-to-magic-methods-743bdeb4651f
 # https://www.geeksforgeeks.org/python/dunder-magic-methods-python/
@@ -13,19 +16,20 @@ class complex_numbers:
     def __repr__(self) -> str:
         return f"{self.real} + {self.imaginary}i"
 
-    def __eq__(self, other: "complex_numbers") -> bool:
-        if isinstance(other, complex_numbers):
-            return self.real == other.real and self.imaginary == other.imaginary
-        return False
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, complex_numbers):
+            raise ValueError(
+                f"Comparison with {type(other)} can not be made with complex_numbers"
+            )
+        return self.real == other.real and self.imaginary == other.imaginary
 
-    def conjugate(self) -> "complex_numbers":
+    def conjugate(self) -> complex_numbers:
         return complex_numbers(real=self.real, imaginary=-self.imaginary)
 
     def __abs__(self) -> float:
-        absolute_value = math.sqrt(self.real**2 + self.imaginary**2)
-        return absolute_value
+        return sqrt(self.real**2 + self.imaginary**2)
 
-    def __add__(self, add: "complex_numbers" | int | float) -> "complex_numbers":
+    def __add__(self, add: Any) -> complex_numbers:
         if isinstance(add, complex_numbers):
             return complex_numbers(
                 real=self.real + add.real, imaginary=self.imaginary + add.imaginary
@@ -36,10 +40,10 @@ class complex_numbers:
             f"Operation add not defined for complex_numbers and {type(add)}"
         )
 
-    def __radd__(self, other: int) -> "complex_numbers":
+    def __radd__(self, other: int) -> complex_numbers:
         return self.__add__(other)
 
-    def __sub__(self, sub: "complex_numbers" | int | float) -> "complex_numbers":
+    def __sub__(self, sub: Any) -> complex_numbers:
         if isinstance(sub, complex_numbers):
             return complex_numbers(
                 real=self.real - sub.real, imaginary=self.imaginary - sub.imaginary
@@ -50,10 +54,10 @@ class complex_numbers:
             f"Operation sub not defined for complex_numbers and {type(sub)}"
         )
 
-    def __rsub__(self, sub: int) -> "complex_numbers":
+    def __rsub__(self, sub: int) -> complex_numbers:
         return complex_numbers(real=sub - self.real, imaginary=-self.imaginary)
 
-    def __mul__(self, product: "complex_numbers" | int | float) -> "complex_numbers":
+    def __mul__(self, product: Any) -> complex_numbers:
         if isinstance(product, complex_numbers):
             real_part = self.real * product.real - self.imaginary * product.imaginary
             imaginary_part = (
@@ -71,16 +75,16 @@ class complex_numbers:
             f"Operation multiplication not defined for complex_numbers and {type(product)}"
         )
 
-    def __rmul__(self, product: int) -> "complex_numbers":
+    def __rmul__(self, product: int) -> complex_numbers:
         return self.__mul__(product)
 
-    def reciprocal(self) -> "complex_numbers":
+    def reciprocal(self) -> complex_numbers:
         return complex_numbers(
             real=self.real / (self.real**2 + self.imaginary**2),
             imaginary=-self.imaginary / (self.real**2 + self.imaginary**2),
         )
 
-    def __truediv__(self, div: "complex_numbers" | int | float) -> "complex_numbers":
+    def __truediv__(self, div: Any) -> complex_numbers:
         if isinstance(div, complex_numbers):
             return complex_numbers(
                 real=(self.real * div.real + self.imaginary * div.imaginary)
@@ -94,14 +98,14 @@ class complex_numbers:
             f"Operation division not defined for complex_numbers and {type(div)}"
         )
 
-    def __rtruediv__(self, div: int) -> "complex_numbers":
+    def __rtruediv__(self, div: int) -> complex_numbers:
         return complex_numbers(
             real=(div * self.real) / (self.real**2 + self.imaginary**2),
             imaginary=(-div * self.imaginary) / (self.real**2 + self.imaginary**2),
         )
 
-    def exp(self) -> "complex_numbers":
+    def exp(self) -> complex_numbers:
         return complex_numbers(
-            real=math.exp(self.real) * math.cos(self.imaginary),
-            imaginary=(math.exp(self.real) * math.sin(self.imaginary)),
+            real=exp(self.real) * cos(self.imaginary),
+            imaginary=(exp(self.real) * sin(self.imaginary)),
         )

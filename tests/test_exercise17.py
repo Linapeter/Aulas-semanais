@@ -1,6 +1,6 @@
-import math
+from math import e, log, pi
 
-import pytest
+from pytest import approx
 
 from exercises.exercise17 import complex_numbers
 
@@ -48,7 +48,9 @@ def test_multiply_purely_real_numbers() -> None:
 def test_divide() -> None:
     assert complex_numbers(1, 0) / complex_numbers(2, 0) == (complex_numbers(0.5, 0))
     assert complex_numbers(0, 1) / complex_numbers(0, 2) == (complex_numbers(0.5, 0))
-    assert complex_numbers(1, 2) / complex_numbers(3, 4) == (complex_numbers(0.44, 0.08))
+    assert complex_numbers(1, 2) / complex_numbers(3, 4) == (
+        complex_numbers(0.44, 0.08)
+    )
 
 
 # Absolute value
@@ -69,20 +71,29 @@ def test_conjugate() -> None:
 
 # Complex exponential function
 def test_euler_s_identity_formula() -> None:
-    assert complex_numbers(0, math.pi).exp() == pytest.approx(complex_numbers(-1, 0))
+    result = complex_numbers(0, pi).exp()
+    expected = complex_numbers(-1, 0)
+    assert result.real == approx(result.real)
+    assert result.imaginary == approx(expected.imaginary)
 
 
 def test_exponential() -> None:
     assert complex_numbers(0, 0).exp() == (complex_numbers(1, 0))
-    assert complex_numbers(1, 0).exp() == (complex_numbers(math.e, 0))
+    assert complex_numbers(1, 0).exp() == (complex_numbers(e, 0))
 
 
 def test_exponential_of_a_number_with_real_and_imaginary_part() -> None:
-    assert complex_numbers(math.log(2), math.pi).exp() == pytest.approx(complex_numbers(-2, 0))
+    result = complex_numbers(log(2), pi).exp()
+    expected = complex_numbers(-2, 0)
+    assert result.real == approx(expected.real)
+    assert result.imaginary == approx(expected.imaginary)
 
 
 def test_exponential_resulting_in_a_number_with_real_and_imaginary_part() -> None:
-    assert complex_numbers(math.log(2) / 2, math.pi / 4).exp() == (complex_numbers(1, 1))
+    result = complex_numbers(log(2) / 2, pi / 4).exp()
+    expected = complex_numbers(1, 1)
+    assert result.real == approx(expected.real)
+    assert result.imaginary == approx(expected.imaginary)
 
 
 # Operations between real numbers and complex numbers

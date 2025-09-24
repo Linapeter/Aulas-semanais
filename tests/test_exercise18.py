@@ -1,4 +1,5 @@
-import math
+
+from pytest import approx
 
 from exercises.exercise18 import Rational
 
@@ -67,9 +68,9 @@ def test_exponentiation() -> None:
 # --- Exponentiation of a real number to a rational number ---
 
 def test_exponentiation_of_a_real_number_to_a_rational_number() -> None:
-    assert math.isclose(8 ** Rational(4, 3), 16.0, rel_tol=1e-8)
-    assert math.isclose(9 ** Rational(-1, 2), 0.3333333333333333, rel_tol=1e-8)
-    assert math.isclose(2 ** Rational(0, 1), 1.0, rel_tol=1e-8)
+    assert 8 ** Rational(4, 3) == approx(16.0, abs=1e-8)
+    assert 9 ** Rational(-1, 2) == approx(0.3333333333333333, abs=1e-8)
+    assert 2 ** Rational(0, 1)== approx(1.0, abs=1e-8)
 
 
 # --- Reduction to lowest terms ---
