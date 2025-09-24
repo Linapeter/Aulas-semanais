@@ -2,9 +2,9 @@
 
 # Students Class created to receive name and grade
 
-from typing import Any, Callable
+from typing import Any
 class students:
-    list_students = [int, str]
+    list_students: list[int, str] = []
     def __init__(self,name: str,grade: int) -> None:
         """init of class student, definition of name and grade of student
 

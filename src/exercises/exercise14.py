@@ -1,43 +1,17 @@
-# class matching_brackets:
-#     pairs = {
-#         "(": ")",
-#         "[": "]",
-#         "{": "}",
-#     }
-
-#     def __init__(self, text: str) -> None:
-#         self.text = text
-
-#     def is_paired(self) -> bool:
-#         list_of_brackets: list[str] = []
-
-#         for character in self.text:
-#             if character in self.pairs:  # abre
-#                 list_of_brackets.append(character)
-
-#             if character in self.pairs.values():  # fecha
-#                 if (
-#                     list_of_brackets == []
-#                     or self.pairs[list_of_brackets.pop()] != character
-#                 ):  # não teve abertura ou o último da lista não fecha o par
-#                     return False
-
-#         return list_of_brackets == []  # True ou False se a lista estiver vazia ou não
-
-
 def is_paired(text: str) -> bool:
-    pairs = "()[]{}"
+    brackets = {"(": 1, ")": -1, "[": 10, "]": -10, "{": 100, "}": -100}
+    just_brackets = "".join(c for c in text if c in brackets)
     acc = 0
-    just = "".join(filter(lambda c: c in pairs, text))
-    for i in just:
-        while acc >= 0:
-            if i in "([{":
-                acc += 1
-            if i in ")]}":
-                acc -= 1
-    if acc == 0:
-        return True
-    else:
-        return False
+    for i in just_brackets:
+        acc += brackets[i]
+
+        if acc < 0:
+            return False
+
+        if acc % 10 != 0 and brackets[i] < 0 and abs(brackets[i]) != abs(acc % 10):
+            return False
+
+    return acc == 0
+
 
 print(is_paired("[({})"))
