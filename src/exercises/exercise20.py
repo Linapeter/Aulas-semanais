@@ -26,7 +26,7 @@ def multiples(number: int) -> list[int]:
 
     while clone > 1:
         prime = largest_prime(clone)
-        if clone % prime == 0:
+        if not clone % prime:
             multiples.append(prime)
             clone //= prime
 

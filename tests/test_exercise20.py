@@ -1,5 +1,5 @@
-
 import pytest
+
 from exercises.exercise20 import multiples
 
 
@@ -16,10 +16,9 @@ from exercises.exercise20 import multiples
         (625, [5, 5, 5, 5]),
         (6, [2, 3]),
         (12, [2, 2, 3]),
-        (901255, [5, 17, 23, 461]),
-        (93819012551, [11, 9539, 894119]),
+        (901_255, [5, 17, 23, 461]),
+        (93_819_012_551, [11, 9_539, 894_119]),
     ],
 )
-def test_factors(number:int, expected:list[int]) -> None:
+def test_factors(number: int, expected: list[int]) -> None:
     assert multiples(number) == expected
-

@@ -7,19 +7,25 @@
 # a + b + c = soma --> a = soma - b - c
 
 
-def pythagorean_triplet_sum(sum_abc: int) -> int | None:
+def pythagorean_triplet_sum(sum_abc: int) -> int:
     """This function finds a Pythagorean triplet that has the sum of its sides equal to the given value.
 
     Args:
         sum_abc (int): the sum of the sides wanted
 
     Returns:
-        int | None: the product of the pythagorean triplet found; if it is not found, returns None
+        int: the product of the pythagorean triplet found
     """
-    for c in range(sum_abc // 3, sum_abc // 2):
-        for b in range(int(sum_abc**(1/2)), c):
-            a: int = sum_abc - b - c
-            if a * a + b * b == c * c and a + b + c == sum_abc:
-                return a * b * c
-    return None
+    result = 0
 
+    if sum_abc <= 1:
+        raise ValueError("sum abc cannot be less or equal one")
+
+    for c in range(sum_abc // 3, sum_abc // 2):
+        for b in range(int(sum_abc ** (1 / 2)), c):
+            a = sum_abc - b - c
+            if a * a + b * b == c * c and a + b + c == sum_abc:
+                result = a * b * c
+                break
+
+    return result
