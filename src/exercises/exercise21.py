@@ -20,16 +20,11 @@ def sieve_of_eratosthenes(number: int) -> list[Any] | list[int]:
                 # i=5, j=25,30,35... / i=6, j=36,42,48...
                 is_prime[j] = False
 
-    primes = [i for i, prime in enumerate(is_prime) if prime]
-    return primes
+    return [i for i, prime in enumerate(is_prime) if prime]
 
 
 def sum_of_prime(limit: int) -> int:
 
-    sum_primes: int = 0
     primes = sieve_of_eratosthenes(limit)
 
-    for factors in primes:
-        sum_primes += factors
-
-    return sum_primes
+    return sum(primes)
