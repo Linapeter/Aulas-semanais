@@ -12,6 +12,3 @@ def is_paired(text: str) -> bool:
             return False
 
     return acc == 0
-
-
-print(is_paired("[({})"))

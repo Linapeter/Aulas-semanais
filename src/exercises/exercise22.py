@@ -34,7 +34,7 @@ class spell_our_numbers:
                     after_scale = value % scale_value
                     result = before_scale + " " + scale_name
                     if after_scale > 0:
-                        result += ", " + num2words(after_scale)
+                        result += ", " + num2words(after_scale).remove(" and")
                     return result
         if value < 1_000:
             result = ""

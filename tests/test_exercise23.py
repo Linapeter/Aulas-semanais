@@ -1,10 +1,12 @@
+from os.path import join
 from pathlib import Path
 
 from exercises.exercise23 import grid_largest_product
 
 BOX = str(
     " ".join(
-        line.rstrip() for line in (Path(__file__).parent / "data/exercise23.txt").open()
+        line.rstrip()
+        for line in Path(join(Path(__file__).parent, "data", "exercise23.txt")).open()
     )
 )
 

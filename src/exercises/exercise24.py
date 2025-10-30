@@ -24,16 +24,6 @@ def abbreviate(phrase: str) -> str:
     Returns:
         str: abbreviation
     """
-    words = phrase
+    words = phrase.replace("-", " ").replace("_","").replace(",","").split()
 
-    if "-" in words:
-        words = words.replace("-", " ")
-
-    list_words = words.split()
-    acronym = ""
-
-    for word in list_words:
-        word = word.strip(",_/?!@#$%&*()+[];:º~^")
-        acronym += word[0]
-
-    return acronym.upper()
+    return "".join([word.strip("!#@$%&*()_,.")[0].upper() for word in words if word[0].isalpha()])
