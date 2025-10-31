@@ -1,6 +1,6 @@
 import pytest
 
-from exercises.exercise28 import Roman_numerals
+from exercises.exercise28 import roman
 
 
 @pytest.mark.parametrize(
@@ -36,4 +36,4 @@ from exercises.exercise28 import Roman_numerals
     ],
 )
 def test_roman_numerals(number: int, expected: str) -> None:
-    assert Roman_numerals(number).roman() == expected
+    assert roman(number) == expected

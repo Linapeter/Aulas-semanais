@@ -7,35 +7,39 @@
 
 #  cases: 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD) and 900 (CM).
 
-class Roman_numerals():
-    LETTERS: dict[str,int] = {
-    "M": 1_000,
-    "CM": 900,
-    "D": 500,
-    "CD": 400,
-    "C": 100,
-    "XC": 90,
-    "L": 50,
-    "XL": 40,
-    "X": 10,
-    "IX": 9,
-    "V": 5,
-    "IV": 4,
-    "I": 1,
-    }
-    def __init__(self, number:int) -> None:
-        self.number = number
-        if not (0 < self.number < 4_000) :
-            raise ValueError("Number out of range")
 
-    def roman(self) -> str:
-        result = ''
-        rest = self.number
-        for letters, numbers in self.LETTERS.items():
-            while rest >= numbers:
-                result += letters
-                rest -= numbers
-        return result
+def roman(number: int) -> str:
+    """Converts the stored integer into its Roman numeral representation.
+
+    Returns:
+        str: The Roman numeral equivalent of the integer.
+    """
+    LETTERS: dict[str, int] = {
+        "M": 1_000,
+        "CM": 900,
+        "D": 500,
+        "CD": 400,
+        "C": 100,
+        "XC": 90,
+        "L": 50,
+        "XL": 40,
+        "X": 10,
+        "IX": 9,
+        "V": 5,
+        "IV": 4,
+        "I": 1,
+    }
+    if not (0 < number < 4_000):
+        raise ValueError("Number out of range")
+
+    result = ""
+    rest = number
+    for letters, numbers in LETTERS.items():  # do maior pro menor
+        while rest >= numbers:  # para no maior número anterior ao resto
+            result += letters
+            rest -= numbers
+
+    return result
 
 
 # def roman(number: int) -> str:
