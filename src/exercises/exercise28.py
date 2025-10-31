@@ -8,12 +8,17 @@
 #  cases: 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD) and 900 (CM).
 
 
-def roman(number: int) -> str:
+def roman(
+    number: int,
+) -> str:
     """Converts the stored integer into its Roman numeral representation.
 
     Returns:
         str: The Roman numeral equivalent of the integer.
     """
+    if not (0 < number < 4_000):
+        raise ValueError("Number out of range")
+
     LETTERS: dict[str, int] = {
         "M": 1_000,
         "CM": 900,
@@ -29,15 +34,12 @@ def roman(number: int) -> str:
         "IV": 4,
         "I": 1,
     }
-    if not (0 < number < 4_000):
-        raise ValueError("Number out of range")
-
     result = ""
-    rest = number
+
     for letters, numbers in LETTERS.items():  # do maior pro menor
-        while rest >= numbers:  # para no maior número anterior ao resto
+        while number >= numbers:  # para no maior número anterior ao resto
             result += letters
-            rest -= numbers
+            number -= numbers
 
     return result
 

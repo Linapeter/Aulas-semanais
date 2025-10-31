@@ -27,13 +27,16 @@ from exercises.exercise28 import roman
         (575, "DLXXV"),
         (666, "DCLXVI"),
         (911, "CMXI"),
-        (1024, "MXXIV"),
-        (1666, "MDCLXVI"),
-        (3000, "MMM"),
-        (3001, "MMMI"),
-        (3888, "MMMDCCCLXXXVIII"),
-        (3999, "MMMCMXCIX"),
+        (1_024, "MXXIV"),
+        (1_666, "MDCLXVI"),
+        (3_000, "MMM"),
+        (3_001, "MMMI"),
+        (3_888, "MMMDCCCLXXXVIII"),
+        (3_999, "MMMCMXCIX"),
     ],
 )
-def test_roman_numerals(number: int, expected: str) -> None:
+def test_roman_numerals(
+    number: int,
+    expected: str,
+) -> None:
     assert roman(number) == expected
