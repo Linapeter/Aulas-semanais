@@ -42,11 +42,14 @@ class PhoneNumber:
     ) -> None:
         """
         Initialize a PhoneNumber instance.
-        Parameters
-        ----------
-        message : str
-        The raw phone number string, which may include punctuation,
-        spaces, or other non-digit characters.
+
+        Args:
+            message (str): The raw phone number string, which may include punctuation,
+            spaces, or other non-digit characters.
+
+        Raises:
+            ValueError: if a phone number has letters in place of some digits.
+            ValueError: if a phone number has punctuation in place of some digits.
         """
         self.message = message.strip()
         # on the middle
@@ -58,19 +61,15 @@ class PhoneNumber:
     def number(self) -> str:
         """Extract and validate the numeric phone number from the message.
 
-        Returns
-        -------
-        str
-            The validated 10-digit phone number as a continuous string.
-
-        Raises
-        ------
-        ValueError
+        Raises ValueError
             If the message contains letters, punctuation, or if the number:
             - Has fewer than 10 digits
             - Has more than 11 digits
             - Has 11 digits but does not start with '1'
             - Has an area code or exchange code starting with '0' or '1'
+
+        Returns:
+            str: The validated 10-digit phone number as a continuous string.
         """
         phone_number = "".join(
             character for character in self.message if character.isdigit()
@@ -102,10 +101,8 @@ class PhoneNumber:
     def area_code(self) -> str:
         """Return the area code of the phone number.
 
-        Returns
-        -------
-        str
-            The first three digits of the validated phone number.
+        Returns:
+            str: The first three digits of the validated phone number.
         """
         number: str = self.number()
         return number[0:3]
@@ -113,10 +110,8 @@ class PhoneNumber:
     def pretty_print(self) -> str:
         """Return a formatted representation of the phone number.
 
-        Returns
-        -------
-        str
-            The phone number formatted as "(XXX) XXX-XXXX".
+        Returns:
+            str: The phone number formatted as "(XXX) XXX-XXXX".
         """
         number: str = self.number()
         return f"({number[0:3]}) {number[3:6]}-{number[6:]}"

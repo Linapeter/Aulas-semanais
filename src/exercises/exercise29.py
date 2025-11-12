@@ -68,3 +68,7 @@ def longest_collatz_sequence(
             starting_number = visitor
 
     return starting_number
+
+
+# PARALELISMO E DECORATOR
+# https://github.com/Fazendaaa/project-euler/blob/master/src/python/src/project_euler/first/problem_14.py
