@@ -1,11 +1,11 @@
 # What is the greatest product of four adjacent numbers in the same direction
 # (up, down, left, right, or diagonally) in the 20x20 grid?
 
-from numpy import array, diag, fliplr, prod
+from numpy import ndarray, array, diag, fliplr, prod
 
 
 def greatest_product_horizontal(
-    grid: array, dimension: int, adjacent_numbers: int
+    grid: ndarray, dimension: int, adjacent_numbers: int
 ) -> int:
     largest_product: int = 0
     for row in range(dimension):
@@ -16,7 +16,9 @@ def greatest_product_horizontal(
 
 
 def greatest_product_diagonal(
-    grid: array, dimension: int, adjacent_numbers: int
+    grid: ndarray,
+    dimension: int,
+    adjacent_numbers: int,
 ) -> int:
     largest_product = 0
     for index in range(-dimension + 1, dimension):

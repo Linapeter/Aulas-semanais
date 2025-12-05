@@ -1,6 +1,6 @@
 import pytest
 
-from exercises.exercise28 import roman
+from exercises.exercise28_RomanNumerals import roman
 
 
 @pytest.mark.parametrize(

@@ -1,5 +1,5 @@
 
-from exercises.exercise11 import translate
+from exercises.exercise11_piglatin import translate
 
 def test_word_beginning_with_a() -> None:
     assert translate("apple") == "appleay"

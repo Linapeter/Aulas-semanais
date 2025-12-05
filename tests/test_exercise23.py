@@ -1,7 +1,7 @@
 from os.path import join
 from pathlib import Path
 
-from exercises.exercise23 import grid_largest_product
+from exercises.exercise23_PE11 import grid_largest_product
 
 BOX = str(
     " ".join(

@@ -1,4 +1,4 @@
-from exercises.exercise16 import Diamonds
+from exercises.exercise16_Diamonds import Diamonds
 
 
 def test_degenerate_case_with_a_single_a_row() -> None:

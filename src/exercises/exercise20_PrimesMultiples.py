@@ -8,7 +8,7 @@
 # = 4 * 15
 # = 60
 
-from exercises.exercise5 import largest_prime
+from exercises.exercise5_PE3 import largest_prime
 
 
 def multiples(number: int) -> list[int]:

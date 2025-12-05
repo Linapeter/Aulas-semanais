@@ -1,4 +1,4 @@
-from exercises.exercise12 import rotate
+from exercises.exercise12_rotateROT import rotate
 
 
 def test_rotate_a_by_0_same_output_as_input() -> None:

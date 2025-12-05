@@ -1,4 +1,4 @@
-from exercises.exercise24 import abbreviate
+from exercises.exercise24_Acronym import abbreviate
 
 
 def test_basic() -> None:

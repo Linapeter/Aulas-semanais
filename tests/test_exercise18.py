@@ -1,7 +1,7 @@
 
 from pytest import approx
 
-from exercises.exercise18 import Rational
+from exercises.exercise18_RationalNumbers import Rational
 
 
 # --- Arithmetic ---

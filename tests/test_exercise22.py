@@ -1,5 +1,5 @@
 from pytest import raises
-from exercises.exercise22 import spell_our_numbers
+from exercises.exercise22_SpellOutNumbers import spell_our_numbers
 
 def test_zero() -> None:
     assert spell_our_numbers(0).say() == "zero"
@@ -66,5 +66,5 @@ def test_numbers_above_999_999_999_999_are_out_of_range() -> None:
     assert err.type is ValueError
     assert err.value.args[0] == "Input out of range." or err.value.args[0] == "input out of range"
 
-def test_one_hundred_seventy():
+def test_one_hundred_seventy() -> None:
     assert spell_our_numbers(170).say() == "one hundred seventy"

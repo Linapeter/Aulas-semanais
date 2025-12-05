@@ -1,14 +1,8 @@
-# append ();
-# concatenate (given a series of lists, combine all items in all lists into one flattened list);
-# filter (given a predicate and a list, return the list of all items for which predicate(item) is True);
-# length (given a list, return the total number of items within it);
-# map (given a function and a list, return the list of the results of applying function(item) on all items);
-# foldl (given a function, a list, and initial accumulator, fold (reduce) each item into the accumulator from the left);
-# foldr (given a function, a list, and an initial accumulator, fold (reduce) each item into the accumulator from the right);
-# reverse (given a list, return a list with all the original items, but in reversed order).
-# Note, the ordering in which arguments are passed to the fold functions (foldl, foldr) is significant.
+# https://exercism.org/tracks/python/exercises/list-ops
 
 from typing import Any, Callable
+
+list_kind = list[Any] | list[list[Any]] | Any
 
 
 class ListOps:
@@ -49,18 +43,25 @@ class ListOps:
         """given a function and a list, return the list of the results of applying function(item) on all items"""
         return [function_map(mapped) for mapped in list_map]
 
-    def foldl(self,function_fold: Callable[[Any, Any], Any],l_list: list[list[Any]],acc: Any) -> Any:  # left to right
+    def foldl(
+        self,
+        function_fold: Callable[[Any, Any], Any],
+        l_list: list_kind,
+        acc: int,
+    ) -> int:  # left to right
         """given a function, a list, and initial accumulator, fold (reduce) each item into the accumulator from the left"""
         for item in l_list:
             acc = function_fold(acc, item)
         return acc
 
-    def foldr(self, function_fold: Callable[[Any, Any], Any], r_list: list[Any], acc: Any) -> Any:  # right to left
+    def foldr(
+        self, function_fold: Callable[[Any, Any], Any], r_list: list_kind, acc: int
+    ) -> int:  # right to left
         """given a function, a list, and an initial accumulator, fold (reduce) each item into the accumulator from the right"""
         for item in reversed(r_list):
             acc = function_fold(acc, item)
         return acc
 
-    def reverse(self, reverse_lists: list[list[Any]]) -> list[Any]:
+    def reverse(self, reverse_lists: list_kind) -> list_kind:
         """given a list, return a list with all the original items, but in reversed order"""
         return list(reversed(reverse_lists))

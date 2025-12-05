@@ -11,9 +11,12 @@
 
 # n grid: 2n! / (n! n!)
 
-from scipy.special import comb
+from math import comb
 
-def grid_routes(dimension:int) -> int:
+
+def grid_routes(
+    dimension: int,
+) -> int:
     """This function return the number of routes that has a n-grid
 
     Args:

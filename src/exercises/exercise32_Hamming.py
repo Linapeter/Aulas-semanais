@@ -30,9 +30,7 @@ def zipped(
         if len(strand_a) != len(strand_b):
             raise ValueError("Strands must be of equal length.")
 
-        zipped = zip(strand_a, strand_b)
-
-        return func(zipped)
+        return func(zip(strand_a, strand_b))
 
     return wrapper
 
@@ -41,9 +39,29 @@ def zipped(
 def distance(
     strands: Iterable[Tuple[str, str]],
 ) -> int:  # distance = zipped(distance),
-# Então, ao chamar a função distance (com @zipped), ele primeiro zippa as strands que quero e chama como strands mesmo, isso se as len's forem iguais
+    # Então, ao chamar a função distance (com @zipped), ele primeiro zippa as strands que quero e chama como strands mesmo, isso se as len's forem iguais
 
     return sum(strand_a != strand_b for strand_a, strand_b in strands)
 
 
-print(distance("AFTRD", "ARFRD"))
+# def distance(
+#     strand_a: str,
+#     strand_b: str,
+# ) -> int:
+#     """This function receives two DNA strands of the same length and calculates the Hamming distance.
+
+#     Args:
+#         strand_a (str): first DNA strand
+#         strand_b (str): second DNA strand
+
+#     Raises:
+#         ValueError: If the lengths of the strands are not equal.
+
+#     Returns:
+#         int: The Hamming distance
+#     """
+
+#     if len(strand_a) != len(strand_b):
+#         raise ValueError("Strands must be of equal length.")
+
+#     return sum(strand_a != strand_b for strand_a, strand_b in zip(strand_a, strand_b))

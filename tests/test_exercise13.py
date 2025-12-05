@@ -1,4 +1,4 @@
-from exercises.exercise13 import prime_in_position
+from exercises.exercise13_PE7 import prime_in_position
 
 
 def test_exercise13() -> None:

@@ -2,7 +2,7 @@ from math import e, log, pi
 
 from pytest import approx
 
-from exercises.exercise17 import complex_numbers
+from exercises.exercise17_ComplexNumbers import complex_numbers
 
 
 # Real part

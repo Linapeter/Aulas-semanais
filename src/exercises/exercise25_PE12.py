@@ -8,7 +8,7 @@
 # What is the value of the first triangle number to have over five hundred divisors?
 
 from functools import reduce
-from exercises.exercise20 import multiples
+from exercises.exercise20_PrimesMultiples import multiples
 
 
 # triangle number = n(n+1) / 2

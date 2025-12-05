@@ -1,6 +1,6 @@
 import pytest
 
-from exercises.exercise30 import PhoneNumber
+from exercises.exercise30_PhoneNumber import PhoneNumber
 
 
 @pytest.mark.parametrize(

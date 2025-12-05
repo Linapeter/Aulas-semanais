@@ -1,6 +1,6 @@
 import pytest
 
-from exercises.exercise26 import slice_series
+from exercises.exercise26_SliceSeries import slice_series
 
 
 def test_slices_of_one_from_one() -> None:
