@@ -43,6 +43,7 @@ def counting(
         The number of letters in the written-out form of the number.
     """
     length = len(spell_our_numbers(number).say().replace(" ", "").replace("-", ""))
+
     return length + 3 if (number > 100) and (number % 100 != 0) else length
     # "and"
 

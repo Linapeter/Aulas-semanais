@@ -46,6 +46,7 @@ class Cipher:
                 If empty, a random 100-character key is generated.
         """
         self.key = "".join(choices(self.alphabet, k=100)) if not key else key.lower()
+    # TODO __repr__
 
     def encode(self, text: str) -> str:
         """Encodes a plaintext string into ciphertext using the cipher's key.
