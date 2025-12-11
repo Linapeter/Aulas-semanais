@@ -24,44 +24,47 @@
 
 # Programação dinâmica (DP) >> Greedy
 
+
 def find_fewest_coins(coins: list[int], target: int) -> list[int]:
     """
-    Encontra a menor quantidade possível de moedas cuja soma é igual ao valor desejado (target),
-    usando programação dinâmica (DP). Sempre retorna uma combinação ótima, mesmo quando uma
-    estratégia gulosa falha (por exemplo, moedas [1, 10, 11] para fazer 20).
+    Finds the minimum number of coins whose sum is equal to the given target value,
+    using dynamic programming (DP). It always returns an optimal combination, even
+    when a greedy strategy fails (for example, with coins [1, 10, 11] to make 20).
 
-    A função constrói uma tabela `dp` onde:
-        - dp[x] armazena a lista de moedas que soma x com a menor quantidade de moedas possível;
+    The function builds a table `dp` where:
+        - dp[x] stores the list of coins that sums to x using the smallest possible
+        number of coins;
         - dp[0] = [];
-        - dp[target] contém a solução ótima final.
+        - dp[target] contains the final optimal solution.
 
-    O algoritmo tenta todas as moedas disponíveis e constrói soluções menores para formar
-    valores maiores, garantindo que a solução final é ótima.
+    The algorithm tries all available coins and builds smaller solutions to compose
+    larger values, ensuring that the final solution is optimal.
 
     Args:
         coins (list[int]):
-            Lista de denominações das moedas disponíveis. Não precisa estar ordenada.
-            Exemplo: [1, 4, 15, 20, 50]
+            List of available coin denominations. It does not need to be sorted.
+            Example: [1, 4, 15, 20, 50]
 
         target (int):
-            O valor que deve ser formado com as moedas.
-            Deve ser >= 0.
+            The value to be formed using the coins.
+            Must be >= 0.
 
     Raises:
         ValueError:
-            Se o valor do target for negativo.
+            If the target value is negative.
             ("target can't be negative")
 
         ValueError:
-            Se não existir nenhuma combinação de moedas que some ao target.
+            If there is no possible combination of coins that sums to the target.
             ("can't make target with given coins")
 
     Returns:
         list[int]:
-            Uma lista de moedas cuja soma é igual ao target, contendo a menor quantidade total
-            de moedas possível. O resultado é retornado ordenado em ordem crescente.
+            A list of coins whose sum equals the target, containing the smallest
+            possible total number of coins. The result is returned sorted in
+            ascending order.
 
-            Exemplo:
+            Example:
                 find_fewest_coins([1, 10, 11], 20) -> [10, 10]
     """
     if target < 0:
@@ -69,24 +72,27 @@ def find_fewest_coins(coins: list[int], target: int) -> list[int]:
     if target == 0:
         return []
 
-    dp: list[list[int] | None] = [None] * (target + 1)          # uma lista grande que armazena listas de melhores trocos
-    dp[0] = []
-    # queremos dp[20] = [10,10]
-    for amount in range(1, target + 1):                         # vai até o target, armazendando os melhores trocos
-        best: list[int] | None = None
+    dp: list[list[int]] = [[] for _ in range(target + 1)]
 
-        for coin in coins:                                      # de moeda em moeda disponível
-            if amount - coin >= 0 and dp[amount - coin] is not None:                # se a moeda for menor que o troco e se ainda não tiver uma lista de trocos atualizado para o amount
-                candidate: list[int] | None = dp[amount - coin] + [coin]            # o candidato é dp[4 - a moeda 1] + [1] = dp[3] + [1] , aqui estamos no amount 4 testando a moeda 1, já tem o dp[3] = [1,1,1] e vai adicionar 1
-                if best is None or len(candidate) < len(best):
-                    best = candidate
+    for amount in range(1, target + 1):
+        best: list[int] = []
+
+        for coin in coins:
+            if amount - coin >= 0:
+
+                if dp[amount - coin] or amount - coin == 0:
+                    candidate: list[int] = dp[amount - coin] + [coin]
+
+                    if not best or len(candidate) < len(best):
+                        best = candidate
 
         dp[amount] = best
 
-    if dp[target] is None:
+    if not dp[target]:
         raise ValueError("can't make target with given coins")
 
     return sorted(dp[target])
+
 
 # coins = [1,10,11] and target = 20
 

@@ -13,8 +13,8 @@
 # se a key for menor que o texto vai repetindo o key do inicio
 
 
-from random import choices
-
+from secrets import choice
+from itertools import cycle
 
 class Cipher:
     """A simple substitution cipher based on shifting letters using a key.
@@ -45,8 +45,10 @@ class Cipher:
                 A string used as the encryption/decryption key.
                 If empty, a random 100-character key is generated.
         """
-        self.key = "".join(choices(self.alphabet, k=100)) if not key else key.lower()
-    # TODO __repr__
+        self.key = "".join(choice(self.alphabet) for _ in range(100)) if not key else key.lower()
+
+    def __repr__(self) -> str:
+        return f"Cipher({self.key})"
 
     def encode(self, text: str) -> str:
         """Encodes a plaintext string into ciphertext using the cipher's key.
@@ -67,14 +69,8 @@ class Cipher:
                 The encoded ciphertext string.
         """
         encoded = ""
-        text = text.lower()
 
-        if len(text) > len(self.key):
-            right_key = (self.key * (len(text) // len(self.key) + 1))[: len(text)] # len(text) = 10 então key='abcabcabca'
-        else:
-            right_key = self.key[: len(text)]
-
-        for letter_text, letter_key in zip(text, right_key):
+        for letter_text, letter_key in zip(text.lower(), cycle(self.key)):
             index_encoded = (
                 self.alphabet.index(letter_text) + self.alphabet.index(letter_key)
             ) % 26
@@ -83,30 +79,24 @@ class Cipher:
         return encoded
 
     def decode(self, text: str) -> str:
-        """Decodes a ciphertext string back into plaintext using the cipher's key.
+        """Decodes a cipher text string back into plaintext using the cipher's key.
 
-        The key is repeated or truncated as needed to match the ciphertext
-        length. Each character in the ciphertext is shifted backward in
+        The key is repeated or truncated as needed to match the cipher text
+        length. Each character in the cipher text is shifted backward in
         the alphabet by an amount determined by the corresponding character
         in the key.
 
         Args:
             text (str):
-                The encoded ciphertext to decode. Converted to lowercase.
+                The encoded cipher text to decode. Converted to lowercase.
 
         Returns:
             str:
                 The decoded plaintext string.
         """
         decoded = ""
-        text = text.lower()
 
-        if len(text) > len(self.key):
-            right_key = (self.key * (len(text) // len(self.key) + 1))[: len(text)]
-        else:
-            right_key = self.key[: len(text)]
-
-        for letter_text, letter_key in zip(text, right_key):
+        for letter_text, letter_key in zip(text.lower(), cycle(self.key)):
             index_decoded = (
                 self.alphabet.index(letter_text) - self.alphabet.index(letter_key)
             ) % 26

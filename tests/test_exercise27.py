@@ -10,5 +10,6 @@ BOX = str(
     )
 )
 
+
 def test_exercise27() -> None:
     assert 5_537_376_230 == large_sum(BOX)
