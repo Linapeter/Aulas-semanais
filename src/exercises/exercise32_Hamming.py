@@ -24,6 +24,15 @@ from typing import Callable, Iterable, Tuple
 def zipped(
     func: Callable[[Iterable[Tuple[str, str]]], int],
 ) -> Callable[[str, str], int]:
+    """
+    Decorator that adapts a function operating on paired characters
+    to accept two strings of equal length.
+
+    The decorated function will:
+    - Validate that both strings have the same length
+    - Zip the strings into pairs
+    - Pass the pairs to the original function
+    """
 
     def wrapper(strand_a: str, strand_b: str) -> int:
 
@@ -40,7 +49,19 @@ def distance(
     strands: Iterable[Tuple[str, str]],
 ) -> int:  # distance = zipped(distance),
     # Então, ao chamar a função distance (com @zipped), ele primeiro zippa as strands que quero e chama como strands mesmo, isso se as len's forem iguais
+    """
+    Compute the Hamming distance between two DNA strands.
 
+    Parameters
+    ----------
+    strands : Iterable[Tuple[str, str]]
+        Paired characters from two DNA strands.
+
+    Returns
+    -------
+    int
+        Number of positions at which the corresponding symbols differ.
+    """
     return sum(strand_a != strand_b for strand_a, strand_b in strands)
 
 

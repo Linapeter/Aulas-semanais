@@ -30,23 +30,86 @@
 #      63 66 04 68 89 53 67 30 73 16 69 87 40 31
 #    04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 
-def maximum_path_sum(triangle:str) -> int:
-    lines: list[list[int]] = [list(map(int, line.split())) for line in triangle.strip().split("\n")]
+from typing import Callable
+
+
+def parse_triangle(func: Callable[[list[list[int]]], int]) -> Callable[[str], int]:
+    """
+    Decorator that converts a triangle represented as a string into a
+    list of integer rows before calling the decorated function.
+
+    The decorated function must accept a triangle already parsed as
+    `list[list[int]]`. This decorator allows the public interface to
+    receive a multiline string, where each line represents a row of
+    integers separated by spaces.
+
+    The parsing process:
+        - Strips leading/trailing whitespace
+        - Splits the string by lines
+        - Converts each value to an integer
+
+    Args:
+        func (Callable[[list[list[int]]], int]):
+            A function that computes a result from a parsed numeric triangle.
+
+    Returns:
+        Callable[[str], int]:
+            A new function that accepts a triangle as a string and returns
+            the result produced by the decorated function.
+
+    Example:
+        >>> @parse_triangle
+        ... def max_sum(lines: list[list[int]]) -> int:
+        ...     return sum(lines[0])
+        ...
+        >>> triangle = "1\\n2 3\\n4 5 6"
+        >>> max_sum(triangle)
+        1
+    """
+
+    def wrapper(triangle: str) -> int:
+        lines = [list(map(int, line.split())) for line in triangle.strip().splitlines()]
+        return func(lines)
+
+    return wrapper
+
+
+@parse_triangle
+def maximum_path_sum(lines: list[list[int]]) -> int:
+    """Computes the maximum path sum in a numeric triangle.
+
+    The triangle is given as a string with one row per line and integers
+    separated by spaces. The function applies a bottom-up dynamic
+    programming approach: starting from the second-to-last row, each element
+    is replaced by its value plus the maximum of its two children in the row
+    below. The top element becomes the maximum total from top to bottom.
+
+    Args:
+        triangle (str):
+            A triangle represented as a multiline string, where each line
+            contains integers separated by spaces. Example:
+                "3\n7 4\n2 4 6\n8 5 9 3"
+
+    Returns:
+        int: The maximum path sum from the top to the bottom of the triangle.
+
+    Example:
+        >>> t =   3
+                 7 4
+                2 4 6
+               8 5 9 3
+
+        >>> maximum_path_sum(t)
+        23
+    """
 
     for line in range(len(lines) - 1, 0, -1):
 
-        for i in range(0, len(lines[line - 1])):
+        for index in range(0, len(lines[line - 1])):
 
-            right = lines[line][i]
-            left = lines[line][i+1]
+            right = lines[line][index]
+            left = lines[line][index + 1]
 
-            lines[line-1][i] += max(right, left)
+            lines[line - 1][index] += max(right, left)
 
     return lines[0][0]
-
-#               3
-#              7 4
-#             2 4 6
-#            8 5 9 3
-
-# That is, 3+7+4+9 = 23

@@ -1,5 +1,6 @@
 from functools import reduce
 
+
 def box_largest_products_of(
     box: str,
     digits: int,
@@ -17,8 +18,8 @@ def box_largest_products_of(
     product = 1
 
     for index in range(0, len(box) - digits + 1):
-        adjecent_numbers = box[index : index + digits]
-        product = reduce(lambda x, y: x * y, map(int, adjecent_numbers))
+        adjacent_numbers = box[index : index + digits]
+        product = reduce(lambda x, y: x * y, map(int, adjacent_numbers))
 
         if product > interable:
             interable = product

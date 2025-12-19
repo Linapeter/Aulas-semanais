@@ -30,4 +30,4 @@ def test_is_paired_cases() -> None:
     ]
 
     for text, expected in cases:
-        assert is_paired(text) == expected
+        assert is_paired(text) == expected, f"Failed matching brackets to the text {text}"

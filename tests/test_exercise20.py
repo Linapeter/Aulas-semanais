@@ -21,4 +21,4 @@ from exercises.exercise20_PrimesMultiples import multiples
     ],
 )
 def test_factors(number: int, expected: list[int]) -> None:
-    assert multiples(number) == expected
+    assert multiples(number) == expected, f"Failed on finding multiples to {number}. Expected: {expected}"

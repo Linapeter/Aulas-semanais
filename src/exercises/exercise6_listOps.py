@@ -55,8 +55,8 @@ class ListOps:
         return acc
 
     def foldr(
-        self, function_fold: Callable[[Any, Any], Any], r_list: list_kind, acc: int
-    ) -> int:  # right to left
+        self, function_fold: Callable[[Any, Any], Any], r_list: list_kind, acc: int | str
+    ) -> int | str:  # right to left
         """given a function, a list, and an initial accumulator, fold (reduce) each item into the accumulator from the right"""
         for item in reversed(r_list):
             acc = function_fold(acc, item)

@@ -7,13 +7,43 @@ from num2words import num2words
 
 
 class spell_our_numbers:
+    """"""
 
-    def __init__(self, number: int) -> None:
+    def __init__(
+        self,
+        number: int,
+    ) -> None:
+        """
+        Convert integers into their English word representation.
+
+        This class supports numbers from 0 up to (but not including) 10^12.
+        Large numbers are spelled recursively using the scales:
+        thousand, million, and billion.
+        """
         if number < 0 or number >= 10**12:
             raise ValueError("Input out of range.")
         self.number = number
 
-    def say(self, value: int | None = None) -> str:
+    def say(
+        self,
+        value: int | None = None,
+    ) -> str:
+        """
+        Return the English word representation of a number.
+
+        If no value is provided, the instance number is spelled.
+        The method works recursively to handle large numbers.
+
+        Parameters
+        ----------
+        value : int | None, optional
+            The number to be spelled. Defaults to the stored number.
+
+        Returns
+        -------
+        str
+            The number spelled out in English words.
+        """
         if value is None:
             value = self.number
 

@@ -1,12 +1,31 @@
 # What is the greatest product of four adjacent numbers in the same direction
 # (up, down, left, right, or diagonally) in the 20x20 grid?
 
-from numpy import ndarray, array, diag, fliplr, prod
+from numpy import array, diag, fliplr, ndarray, prod
 
 
 def greatest_product_horizontal(
-    grid: ndarray, dimension: int, adjacent_numbers: int
+    grid: ndarray,
+    dimension: int,
+    adjacent_numbers: int,
 ) -> int:
+    """
+    Compute the greatest product of adjacent numbers horizontally in a grid.
+
+    Parameters
+    ----------
+    grid : ndarray
+        A square matrix of integers.
+    dimension : int
+        Number of rows and columns of the grid.
+    adjacent_numbers : int
+        Number of consecutive values to multiply.
+
+    Returns
+    -------
+    int
+        The largest horizontal product of adjacent numbers.
+    """
     largest_product: int = 0
     for row in range(dimension):
         for column in range(dimension - adjacent_numbers + 1):
@@ -20,6 +39,25 @@ def greatest_product_diagonal(
     dimension: int,
     adjacent_numbers: int,
 ) -> int:
+    """
+    Compute the greatest product of adjacent numbers along diagonals.
+
+    Diagonals are extracted using offsets (both main and secondary diagonals).
+
+    Parameters
+    ----------
+    grid : ndarray
+        A square matrix of integers.
+    dimension : int
+        Number of rows and columns of the grid.
+    adjacent_numbers : int
+        Number of consecutive values to multiply.
+
+    Returns
+    -------
+    int
+        The largest diagonal product of adjacent numbers.
+    """
     largest_product = 0
     for index in range(-dimension + 1, dimension):
         diagonal = diag(grid, k=index)
@@ -29,7 +67,11 @@ def greatest_product_diagonal(
     return largest_product
 
 
-def grid_largest_product(grid: str, dimension: int, adjacent_numbers: int) -> int:
+def grid_largest_product(
+    grid: str,
+    dimension: int,
+    adjacent_numbers: int,
+) -> int:
     """Calculates the largest product of adjacent numbers in a square grid.
 
     This function takes a string of integers separated by spaces and reshapes it

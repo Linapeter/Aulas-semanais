@@ -5,6 +5,23 @@ from typing import Any
 
 
 def sieve_of_eratosthenes(number: int) -> list[Any] | list[int]:
+    """
+    Generate all prime numbers up to a given limit using the Sieve of Eratosthenes.
+
+    The algorithm works by iteratively marking the multiples of each prime
+    number starting from 2.
+
+    Parameters
+    ----------
+    number : int
+        Upper limit (inclusive) for generating prime numbers.
+
+    Returns
+    -------
+    list[int]
+        A list of all prime numbers less than or equal to `number`.
+        Returns an empty list if `number` is less than 2.
+    """
 
     if number < 2:
         return []
@@ -24,6 +41,20 @@ def sieve_of_eratosthenes(number: int) -> list[Any] | list[int]:
 
 
 def sum_of_prime(limit: int) -> int:
+    """
+    Compute the sum of all prime numbers up to a given limit.
+
+    Parameters
+    ----------
+    limit : int
+        Upper limit (inclusive) for summing prime numbers.
+
+    Returns
+    -------
+    int
+        The sum of all prime numbers less than or equal to `limit`.
+        Returns 0 if there are no primes.
+    """
 
     primes = sieve_of_eratosthenes(limit)
 

@@ -7,14 +7,13 @@ def largest_prime(number: int) -> int:
     """A function that returns the largest prime factor until the number of your choice"""
     largest_factor: int = 0
     counter: int = 2
-    clone_number: int = number
 
-    while counter * counter <= clone_number:
-        if clone_number % counter == 0:
-            clone_number //= counter
+    while counter * counter <= number:
+        if number % counter == 0:
+            number //= counter
             largest_factor = counter
         else:
             counter += 1
-    if clone_number > largest_factor:
-        largest_factor = clone_number
+    if number > largest_factor:
+        largest_factor = number
     return largest_factor

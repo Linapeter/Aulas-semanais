@@ -39,4 +39,4 @@ def test_roman_numerals(
     number: int,
     expected: str,
 ) -> None:
-    assert roman(number) == expected
+    assert roman(number) == expected, f"Expected: {expected} but returned wrong on testind {number}"

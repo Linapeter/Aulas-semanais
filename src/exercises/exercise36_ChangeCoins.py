@@ -25,7 +25,10 @@
 # Programação dinâmica (DP) >> Greedy
 
 
-def find_fewest_coins(coins: list[int], target: int) -> list[int]:
+def find_fewest_coins(
+    coins: list[int],
+    target: int,
+) -> list[int]:
     """
     Finds the minimum number of coins whose sum is equal to the given target value,
     using dynamic programming (DP). It always returns an optimal combination, even

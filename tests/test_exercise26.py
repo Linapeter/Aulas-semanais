@@ -1,65 +1,75 @@
+from typing import List
+
 import pytest
 
 from exercises.exercise26_SliceSeries import slice_series
 
 
-def test_slices_of_one_from_one() -> None:
-    assert slice_series("1", 1) == ["1"]
+@pytest.mark.parametrize(
+    "series, length, expected",
+    [
+        ("1", 1, ["1"]),
+        ("12", 1, ["1", "2"]),
+        ("35", 2, ["35"]),
+        ("9142", 2, ["91", "14", "42"]),
+        ("777777", 3, ["777", "777", "777", "777"]),
+        (
+            "918493904243",
+            5,
+            [
+                "91849",
+                "18493",
+                "84939",
+                "49390",
+                "93904",
+                "39042",
+                "90424",
+                "04243",
+            ],
+        ),
+    ],
+    ids=[
+        "single digit, slice length 1",
+        "two digits, slice length 1",
+        "two digits, slice length 2",
+        "overlapping slices",
+        "duplicate slices",
+        "long series",
+    ],
+)
+def test_valid_slices(
+    series: str,
+    length: int,
+    expected: List[str],
+) -> None:
+    result: List[str] = slice_series(series, length)
+    assert result == expected, (
+        f"slice_series(series={series!r}, length={length}) returned {result!r}, "
+        f"expected {expected!r}"
+    )
 
 
-def test_slices_of_one_from_two() -> None:
-    assert slice_series("12", 1) == ["1", "2"]
-
-
-def test_slices_of_two() -> None:
-    assert slice_series("35", 2) == ["35"]
-
-
-def test_slices_of_two_overlap() -> None:
-    assert slice_series("9142", 2) == ["91", "14", "42"]
-
-
-def test_slices_can_include_duplicates() -> None:
-    assert slice_series("777777", 3) == ["777", "777", "777", "777"]
-
-
-def test_slice_of_a_long_series() -> None:
-    assert slice_series("918493904243", 5) == [
-        "91849",
-        "18493",
-        "84939",
-        "49390",
-        "93904",
-        "39042",
-        "90424",
-        "04243",
-    ]
-
-
-def test_slice_length_is_too_large() -> None:
-    with pytest.raises(
-        ValueError, match="slice length cannot be greater than series length"
-    ):
-        slice_series("12345", 6)
-
-
-def test_slice_length_is_way_too_large() -> None:
-    with pytest.raises(
-        ValueError, match="slice length cannot be greater than series length"
-    ):
-        slice_series("12345", 42)
-
-
-def test_slice_length_cannot_be_zero() -> None:
-    with pytest.raises(ValueError, match="slice length cannot be zero"):
-        slice_series("12345", 0)
-
-
-def test_slice_length_cannot_be_negative() -> None:
-    with pytest.raises(ValueError, match="slice length cannot be negative"):
-        slice_series("123", -1)
-
-
-def test_empty_series_is_invalid() -> None:
-    with pytest.raises(ValueError, match="series cannot be empty"):
-        slice_series("", 1)
+@pytest.mark.parametrize(
+    "series, length, error_message",
+    [
+        ("12345", 6, "slice length cannot be greater than series length"),
+        ("12345", 42, "slice length cannot be greater than series length"),
+        ("12345", 0, "slice length cannot be zero"),
+        ("123", -1, "slice length cannot be negative"),
+        ("", 1, "series cannot be empty"),
+    ],
+    ids=[
+        "slice length too large",
+        "slice length way too large",
+        "slice length zero",
+        "slice length negative",
+        "empty series",
+    ],
+)
+def test_invalid_slices(
+    series: str,
+    length: int,
+    error_message: str,
+) -> None:
+    with pytest.raises(ValueError, match=error_message):
+        slice_series(series, length)
