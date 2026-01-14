@@ -41,4 +41,5 @@
     "mbake.formatOnSave": true,
     "mbake.verbose": true,
     "mbake.showDiff": true,
+    "python.REPL.enableREPLSmartSend": false,
 }
