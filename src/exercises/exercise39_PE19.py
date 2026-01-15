@@ -42,42 +42,43 @@ class calendar:
         "Sunday": 1,
     }
 
-    leap_years: list[int] = []
-
     def __init__(self, year: int) -> None:
         self.year = year
 
-        for i in range(1900, year):
-            if (i % 4 == 0 and i % 100 != 0) or (i % 100 == 0 and i % 400 == 0):
-                self.leap_years.append(i)
-
-        if year in self.leap_years:
-            self.days_per_month["February"] = 29
+    def is_leap(self, year: int) -> bool:
+        if (year % 4 == 0 and year % 100 != 0) or (year % 100 == 0 and year % 400 == 0):
+            return True
+        else:
+            return False
 
     def __repr__(self) -> str:
         return (
             f"The year {self.year} is a leap year"
-            if self.year in self.leap_years
+            if self.is_leap(self.year)
             else f"The year {self.year} isn't a leap year"
         )
 
     # 1 Jan 1900 was a Monday.
     def first_day_of_year(self, year: int) -> int:
-        weekday = ((year - 1900) + len(self.leap_years) + 2) % 7
-        return weekday
+        leap_years = sum(1 for years in range(1900, year) if self.is_leap(years))
+        return ((year - 1900) + leap_years + 2) % 7
+
+    def days_in_month(self, month: str, year: int) -> int:
+        if month == "February" and self.is_leap(year):
+            return 29
+        return self.days_per_month[month]
 
     def first_weekday_of_months(self, weekday: str, year: int) -> int:
         weekday_int = self.weekday[weekday]
+        first_day = self.first_day_of_year(year)
 
         count = 0
         sum_days = 0
-        if self.first_day_of_year(year) == weekday_int:
-            count = 1
 
-        for _, days in self.days_per_month.items():
-            if (self.first_day_of_year(year) + sum_days) % 7 == weekday_int:
+        for month in self.days_per_month:
+            if (first_day + sum_days) % 7 == weekday_int:
                 count += 1
-            sum_days += days
+            sum_days += self.days_in_month(month, year)
 
         return count
 
@@ -86,10 +87,3 @@ class calendar:
         for year in range(start, final + 1):
             total += self.first_weekday_of_months(weekday, year)
         return total
-
-
-c = calendar(2000)
-print(c)
-print(c.first_day_of_year(2000))
-print(c.first_weekday_of_months("Sunday", 2000))
-print(c.first_weekdays_gap_years("Sunday", 1901, 2000))

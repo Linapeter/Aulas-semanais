@@ -41,11 +41,49 @@
 # means that the Blithering Badgers beat the Courageous Californians.
 
 # And this line:
+# "Allegoric Alaskans;Blithering Badgers;win",
+# "Blithering Badgers;Courageous Californians;win",
+# "Courageous Californians;Allegoric Alaskans;loss",
+# ],
+# [
+# HEADER,
+# "Allegoric Alaskans             |  2 |  2 |  0 |  0 |  6",
+# "Blithering Badgers             |  2 |  1 |  0 |  1 |  3",
+# "Courageous Californians        |  2 |  0 |  0 |  2 |  0",
+# ],
+
+# Team                           | MP |  W |  D |  L |  P
+
 
 # Devastating Donkeys;Courageous Californians;draw
 # means that the Devastating Donkeys and Courageous Californians tied.
 
-def tally(rows: list[str]) -> None:
-    teams: dict[str, int]
-    for i in rows:
-        
+from numpy import array
+
+def tally(rows: list[str]) -> list[str]:
+    teams: dict[str, list[int]] = {}
+    for row in rows:
+        team1, team2, result = row.split(";")
+        if team1 not in teams:
+            teams[team1] = array([0, 0, 0, 0, 0])
+        if team2 not in teams:
+            teams[team2] = array([0, 0, 0, 0, 0])
+
+        if result == "win":
+            teams[team1] += array([1, 1, 0, 0, 3])
+            teams[team2] += array([1, 0, 0, 1, 0])
+        if result == "draw":
+            teams[team1] += array([1, 0, 1, 0, 1])
+            teams[team2] += array([1, 0, 1, 0, 1])
+        if result == "loss":
+            teams[team1] += array([1, 0, 0, 1, 0])
+            teams[team2] += array([1, 1, 0, 0, 3])
+
+    table = [("Team", "MP", "W", "D", "L", "P")]
+    ROW_FORMAT = "{:<30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}"
+    sorted_teams = sorted(teams.items(), key=lambda t: (-t[1][4], -t[1][1], t[0]))
+
+    for name, numbers in sorted_teams:
+        table.append((name, *map(str,numbers)))
+
+    return [ROW_FORMAT.format(*row) for row in table]
