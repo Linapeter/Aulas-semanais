@@ -1,4 +1,4 @@
-from exercises.exercise5_PE3 import largest_prime
+from python.exercise5_PE3 import largest_prime
 
 
 def test_exercise5() -> None:

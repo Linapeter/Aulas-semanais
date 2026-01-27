@@ -1,4 +1,4 @@
-from exercises.exercise24_Acronym import abbreviate
+from python.exercise24_Acronym import abbreviate
 import pytest
 
 @pytest.mark.parametrize(

@@ -9,7 +9,7 @@
 
 from functools import reduce
 
-from exercises.exercise5_PE3 import largest_prime
+from python.exercise5_PE3 import largest_prime
 
 def evenly_divisible(limit: int) -> int:
     """Find the smallest positive number that is evenly divisible by all of the numbers from 1 to limit.

@@ -1,7 +1,7 @@
 from os.path import join
 from pathlib import Path
 
-from exercises.exercise27_PE13 import large_sum
+from python.exercise27_PE13 import large_sum
 
 BOX = str(
     " ".join(

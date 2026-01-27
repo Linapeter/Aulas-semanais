@@ -1,4 +1,4 @@
-from exercises.exercise6_listOps import ListOps
+from python.exercise6_listOps import ListOps
 
 
 def test_append_empty_lists() -> None:

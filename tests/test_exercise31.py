@@ -1,4 +1,4 @@
-from exercises.exercise31_PE15 import grid_routes
+from python.exercise31_PE15 import grid_routes
 
 
 def test_exercises31() -> None:

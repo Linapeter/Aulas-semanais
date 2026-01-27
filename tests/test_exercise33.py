@@ -1,4 +1,4 @@
-from exercises.exercise33_PE16 import power_digit_sum,power
+from python.exercise33_PE16 import power_digit_sum,power
 
 def test_function1() -> None:
     assert 26 == (power_digit_sum(15)), "Failed the first test"

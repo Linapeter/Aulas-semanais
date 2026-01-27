@@ -1,4 +1,4 @@
-from exercises.exercise39_PE19 import calendar, first_of_month
+from python.exercise39_PE19 import calendar, first_of_month
 from datetime import date
 
 def test_exercise39() -> None:

@@ -1,4 +1,4 @@
-from exercises.exercise35_PE17 import counting, counting_until
+from python.exercise35_PE17 import counting, counting_until
 
 def test_exercises35() -> None:
     assert 23 == counting(342), "Broke in counting letters, first assert"

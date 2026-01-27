@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from exercises.exercise10_onegigadate import one_giga_date
+from python.exercise10_onegigadate import one_giga_date
 
 def test_date_only_specification_of_time() -> None:
     assert one_giga_date(datetime(2011, 4, 25, 0, 0)).add() == datetime(2043, 1, 1, 1, 46, 40)

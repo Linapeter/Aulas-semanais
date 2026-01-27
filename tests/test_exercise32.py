@@ -1,6 +1,6 @@
 import pytest
 
-from exercises.exercise32_Hamming import distance
+from python.exercise32_Hamming import distance
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,55 @@
+# Desafio #365 [Intermediário] Comissões de Vendas
+# Descrição
+# Você é gerente regional de uma empresa de vendas de bebidas para escritório e, no momento, é responsável por pagar à sua equipe de vendas comissões mensais.
+
+# Os vendedores são pagos usando a seguinte fórmula para a comissão total: a comissão é de 6,2% do lucro, sem comissão para qualquer produto com total inferior a zero.
+
+# Descrição de entrada
+# Você receberá duas matrizes mostrando o valor das vendas por vendedor para cada produto vendido e as despesas por produto por vendedor. Exemplo:
+
+# Receita
+
+#         Frank Jane
+# Chá 120 145
+# Café 243 265
+
+# Despesas
+
+#         Frank Jane
+# Chá 130 59
+# Café 143 198
+
+# Descrição da saída
+
+# Seu programa deve calcular a comissão de cada vendedor do mês. Exemplo:
+
+#                 Frank Jane
+# Comissão 6,20 9,49
+
+
+# Entrada do Desafio
+# Receita
+
+#             Johnver Vanston Danbree Vansey Mundyke
+# Chá 190 140 1926 14 143
+# Café 325 19 293 1491 162
+# Água 682 14 852 56 659
+# Leite 829 140 609 120 87
+
+# Despesas
+
+#             Johnver Vanston Danbree Vansey Mundyke
+# Chá 120 65 890 54 430
+# Café 300 10 23 802 235
+# Água 50 299 1290 12 145
+# Leite 67 254 89 129 76
+# Resultado do desafio
+#             Johnver Vanston Danbree Vansey Mundyke
+# Comissão 92 5 113 45 32
+
+despesas <- read.csv("/home/lina/Documentos/Aulas_semanais/src/R/data/5.dados_vendas/Despesas.csv", header = TRUE, sep = ",")
+receita <- read.csv("/home/lina/Documentos/Aulas_semanais/src/R/data/5.dados_vendas/Receita.csv", header = TRUE, sep = ",")
+
+print(receita-despesas)
+
+apply(receita-despesas, MARGIN = 2, function(x) round(sum(x)*0.062,2))
