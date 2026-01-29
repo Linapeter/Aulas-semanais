@@ -1,0 +1,9 @@
+^renv$
+^renv\.lock$
+^codecov\.yml$
+^_pkgdown\.yml$
+^HISTORY\.md$
+^\.lintr$
+^\.github$
+^docs$
+^\.circleci$

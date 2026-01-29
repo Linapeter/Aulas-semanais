@@ -24,7 +24,5 @@
 #' @export
 
 sum_squares_difference <- function(limit){
-    list <- c(1:limit)
-
-    return ((sum(list))^2 - sum(list^2))
+    return ((sum(c(1:limit)))^2 - sum(c(1:limit)^2))
 }

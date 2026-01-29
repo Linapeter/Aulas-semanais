@@ -47,9 +47,38 @@
 #             Johnver Vanston Danbree Vansey Mundyke
 # Comissão 92 5 113 45 32
 
-despesas <- read.csv("/home/lina/Documentos/Aulas_semanais/src/R/data/5.dados_vendas/Despesas.csv", header = TRUE, sep = ",")
-receita <- read.csv("/home/lina/Documentos/Aulas_semanais/src/R/data/5.dados_vendas/Receita.csv", header = TRUE, sep = ",")
+entrada <- "Receita
 
-print(receita-despesas)
+        Frank Jane
+Chá 120 145
+Café 243 265
 
-apply(receita-despesas, MARGIN = 2, function(x) round(sum(x)*0.062,2))
+Despesas
+
+        Frank Jane
+Chá 130 59
+Café 143 198
+"
+
+comissao <- function(entrada){
+
+    split <- strsplit(entrada, "Despesas")[[1]]
+
+    receita <- read.table(
+      text = gsub("Receita", "", split[1]),
+      header = TRUE,
+      row.names = 1,
+      check.names = FALSE
+    )
+
+    despesas <- read.table(
+      text = split[2],
+      header = TRUE,
+      row.names = 1,
+      check.names = FALSE
+    )
+
+    round((colSums(receita - despesas))*0.062, 2)
+}
+
+print(comissao(entrada))

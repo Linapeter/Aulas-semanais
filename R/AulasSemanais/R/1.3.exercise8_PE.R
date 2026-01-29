@@ -31,21 +31,10 @@
 #'
 #' @export
 #'
-largest_product <- function(series, digits){
+largest_product <- function(series,digits){
     products <- unlist(
         Map(function (index) prod(series[index:(index+digits - 1)]),
         1:(length(series) - digits) + 1))
 
     return (max(products))
 }
-
-
-# file <- readLines("exercise8_PE.txt", warn = FALSE)
-# file <- paste0(file, collapse = "")
-# file <- strsplit(file, "")[[1]]
-# file <- as.numeric(file)
-
-file <- as.numeric(strsplit(paste0(readLines("exercise8_PE.txt", warn = FALSE ), collapse = ""), "") [[1]])
-
-
-print(largest_product(file,4))

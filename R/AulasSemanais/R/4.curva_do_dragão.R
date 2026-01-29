@@ -50,7 +50,8 @@
 #'
 invert__ <- function(serie){
     serie <- 1 - serie
-    rev(serie)
+
+    return (rev(serie))
 }
 
 #' Generate the Dragon Curve turn sequence
@@ -90,5 +91,3 @@ dragon_step <- function(interations){
     }
     return (sequence)
 }
-
-print(dragon_step(8))

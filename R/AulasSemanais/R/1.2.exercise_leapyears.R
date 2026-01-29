@@ -10,7 +10,7 @@
 # 1900 was not a leap year as it's not divisible by 400.
 # 2000 was a leap year!
 
-#' Leap_year
+#' Leap year
 #'
 #' @description
 #' This function returns whether the year is a leap year or not
@@ -24,14 +24,14 @@
 #' A logical value: \code{TRUE} if the year is a leap year, \code{FALSE} otherwise.
 #'
 #' @examples
-#' leap_year(2000)
-#' leap_year(1900)
+#' leap(2000)
+#' leap(1900)
 #'
 #' @author
 #' lina park
 #'
 #' @export
 
-leap_year <- function(year){
+leap <- function(year){
     (year %% 4 == 0 && year %% 100 != 0) || (year %% 400 == 0)
 }
