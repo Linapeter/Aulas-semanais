@@ -11,8 +11,10 @@
 #' This function finds the greatest product obtained from multiplying
 #' a fixed number of consecutive elements in a numeric sequence.
 #'
-#' @param series A numeric vector containing the sequence of numbers.
-#' @param digits An integer indicating how many consecutive elements
+#' @author linapeter
+#'
+#' @param - series A numeric vector containing the sequence of numbers.
+#' @param - digits An integer indicating how many consecutive elements
 #' are used to compute each product.
 #'
 #' @details
@@ -25,9 +27,6 @@
 #'
 #' @examples
 #' largest_product(c(2, 3, 4, 3, 2, 5, 3, 2, 1, 4), 2)
-#'
-#' @author
-#' Lina Park
 #'
 #' @export
 #'

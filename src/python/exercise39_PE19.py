@@ -216,17 +216,11 @@ def first_of_month(weekday: str, start: date, final: date) -> int:
     weekday_int = weekdays[weekday]
     count = 0
 
-    year = start.year
-    month = start.month
+    year, month = start.year, start.month
 
     while date(year, month, 1) <= final:
-        if date(year, month, 1).weekday() == weekday_int:
-            count += 1
 
-        if month == 12:
-            month = 1
-            year += 1
-        else:
-            month += 1
+        count += (date(year, month, 1).weekday() == weekday_int) # if TRUE += 1 else += 0
+        month, year = (1, year + 1) if month == 12 else (month+1, year)
 
     return count

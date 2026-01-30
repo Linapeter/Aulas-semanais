@@ -4,13 +4,11 @@
 \alias{largest_product}
 \title{Largest product of consecutive digits}
 \usage{
-largest_product(digits)
+largest_product(series, digits)
 }
 \arguments{
-\item{digits}{An integer indicating how many consecutive elements
+\item{-}{digits An integer indicating how many consecutive elements
 are used to compute each product.}
-
-\item{series}{A numeric vector containing the sequence of numbers.}
 }
 \value{
 A numeric value corresponding to the largest product of
@@ -29,5 +27,5 @@ largest_product(c(2, 3, 4, 3, 2, 5, 3, 2, 1, 4), 2)
 
 }
 \author{
-Lina Park
+linapeter
 }

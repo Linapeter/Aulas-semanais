@@ -4,7 +4,9 @@
 #' This function returns the difference between Sum of squares and Square of sums,
 #' beginning on 1 until limit.
 #'
-#' @param limit Integer. A positive number indicating the upper bound of the
+#' @author linapeter
+#'
+#' @param - limit Integer. A positive number indicating the upper bound of the
 #' sequence starting at 1.
 #'
 #' @details
@@ -18,11 +20,8 @@
 #' sum_squares_difference(10)
 #' sum_squares_difference(100)
 #'
-#' @author
-#' lina park
-#'
 #' @export
-
+#'
 sum_squares_difference <- function(limit){
     return ((sum(c(1:limit)))^2 - sum(c(1:limit)^2))
 }

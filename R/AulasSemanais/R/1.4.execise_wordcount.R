@@ -50,26 +50,52 @@
 # that's: 1
 # the: 2
 
+#' word_count
+#'
+#' @description
+#' This function counts the frequency of each word in a given phrase.
+#' Words are compared in a case-insensitive manner and may contain
+#' apostrophes when they appear between letters.
+#'
+#' @author linapeter
+#'
+#' @param - phrase Character. A string containing the text to be analyzed.
+#'
+#' @details
+#' The input phrase is first converted to lowercase. Words are then extracted
+#' using a regular expression that removes apostrophes at the beginning or end
+#' of words, while preserving those that appear between letters (e.g.,
+#' \code{"don't"}). Non-alphanumeric characters are treated as separators.
+#'
+#' The function returns a data frame with the unique words and their
+#' corresponding frequencies, sorted alphabetically.
+#'
+#' @return
+#' A data frame with two columns: \code{map}, containing the unique words,
+#' and \code{count}, containing the frequency of each word.
+#'
+#' @examples
+#' word_count("\"That's the password: 'PASSWORD 123'!\", cried the Special Agent.\nSo I fled.")
+#' word_count("It's the time of the time.")
+#'
+#' @export
+#'
 word_count <- function(phrase){
     phrase <- tolower(phrase)
 
     words <- strsplit(phrase, "(?<![a-z])'|'(?![a-z])|[^a-z0-9']+", perl = TRUE)[[1]] #?<! - atrás, ?! - frente, ^ - exceto
     words <- words[words != ""]
 
-    mapping <- data.frame(
-    map = c(words[[1]]),
-    count = c(1))
+    mapping <- integer(0) # it will turn to a named list
 
     for (word in words){
-    if (!word %in% mapping$map){
-        mapping <- rbind(mapping, data.frame(map = word, count = 1))
+    if (!word %in% names(mapping)){
+        mapping[word] <- 1
     }
     else{
-        mapping$count[mapping$map == word] <-
-      mapping$count[mapping$map == word] + 1
+        mapping[word] <- mapping[word] + 1
     }
     }
-    mapping <- mapping[order(mapping$map),]
 
-    return (mapping)
+    return (as.list(mapping[order(names(mapping))]))
 }

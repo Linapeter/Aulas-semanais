@@ -60,9 +60,48 @@ Chá 130 59
 Café 143 198
 "
 
-comissao <- function(entrada){
+#' commission
+#'
+#' @description
+#' This function calculates commission values based on revenue and expense
+#' tables provided in a single text input.
+#'
+#' @author
+#' linapeter
+#'
+#' @param - input Character. A text string containing two tabular sections:
+#' revenue and expenses, separated by the keyword \code{"Expenses"}.
+#'
+#' @details
+#' The input text is split at the keyword \code{"Expenses"}.
+#' The first section is interpreted as a revenue table and the second as
+#' an expense table. The commission is computed as 6.2\% of the column-wise
+#' difference between revenue and expenses.
+#'
+#' @return
+#' A numeric vector containing the commission for each column, rounded
+#' to two decimal places.
+#'
+#' @examples
+#' text <- "Receita
+#'
+#'         Frank Jane
+#' Chá 120 145
+#' Café 243 265
+#'
+#' Despesas
+#'
+#'        Frank Jane
+#' Chá 130 59
+#' Café 143 198"
+#'
+#' commission(text)
+#'
+#' @export
+#'
+commission <- function(input){
 
-    split <- strsplit(entrada, "Despesas")[[1]]
+    split <- strsplit(input, "Despesas")[[1]]
 
     receita <- read.table(
       text = gsub("Receita", "", split[1]),
@@ -81,4 +120,3 @@ comissao <- function(entrada){
     round((colSums(receita - despesas))*0.062, 2)
 }
 
-print(comissao(entrada))

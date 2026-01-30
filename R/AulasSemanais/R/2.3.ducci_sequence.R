@@ -50,6 +50,30 @@
 # (10, 12, 41, 62, 31, 50)
 # (10, 12, 41, 62, 31)
 
+#' (Internal) Perform one step of the Diffy Game
+#'
+#' @description
+#' Given a numeric sequence, this function computes the absolute differences
+#' between consecutive elements, treating the sequence as circular (i.e.,
+#' the last element is compared with the first).
+#'
+#' @author linapeter
+#'
+#' @param sequence A numeric vector.
+#'
+#' @details
+#' For a sequence \eqn{(x_1, x_2, \dots, x_n)}, the result is
+#' \eqn{(|x_1 - x_2|, |x_2 - x_3|, \dots, |x_n - x_1|)}.
+#'
+#' @examples
+#' step__(c(1, 5, 3, 9))
+#'
+#' @return
+#' A numeric vector of the same length as `sequence`, containing the
+#' absolute differences.
+#'
+#' @keywords internal
+#'
 step__ <- function(sequence){
     first <- sequence[1]
     for (index in 1:(length(sequence)-1)){
@@ -60,11 +84,41 @@ step__ <- function(sequence){
     return (sequence)
 }
 
+#' Diffy Game
+#'
+#' @description
+#' This function repeatedly applies the Diffy Game transformation
+#' (see `step__`) to a numeric sequence until one of the following
+#' stopping criteria is met:
+#' \itemize{
+#'   \item all elements are zero;
+#'   \item the sequence stabilizes (the next sequence equals the previous one).
+#' }
+#'
+#' @author linapeter
+#'
+#' @param - sequence A numeric vector or an object coercible to a numeric vector.
+#'
+#' @details
+#' At each iteration, the function prints the updated sequence.
+#' The process stops when the sequence reaches the zero vector or a fixed point.
+#'
+#' @return
+#' An integer indicating the number of iterations performed.
+#'
+#' @examples
+#' diffy_game(c(1, 5, 3, 9))
+#'
+#' @inherit step__
+#'
+#' @export
+#'
 diffy_game <- function(sequence){
     sequence <- unlist(sequence)
     acc <- 0
 
-    while (any(sequence != 0)){
+    while (any(sequence != 0) && !identical(prev_sequence == sequence)){
+        prev_sequence <- sequence
         sequence <- step__(sequence)
         print(sequence)
         acc <- acc + 1

@@ -15,7 +15,9 @@
 #' @description
 #' This function returns whether the year is a leap year or not
 #'
-#' @param year Integer. A positive number indicating the year in question
+#' @author linapeter
+#'
+#' @param - year Integer. A positive number indicating the year in question
 #'
 #' @details
 #' This function corresponds to the Leap Year exercise from Exercism.
@@ -27,11 +29,8 @@
 #' leap(2000)
 #' leap(1900)
 #'
-#' @author
-#' lina park
-#'
 #' @export
-
+#'
 leap <- function(year){
     (year %% 4 == 0 && year %% 100 != 0) || (year %% 400 == 0)
 }

@@ -7,7 +7,7 @@
 sum_squares_difference(limit)
 }
 \arguments{
-\item{limit}{Integer. A positive number indicating the upper bound of the
+\item{-}{limit Integer. A positive number indicating the upper bound of the
 sequence starting at 1.}
 }
 \value{
@@ -27,5 +27,5 @@ sum_squares_difference(100)
 
 }
 \author{
-lina park
+linapeter
 }

@@ -36,7 +36,9 @@
 #' inverts its values (0 becomes 1 and 1 becomes 0), and then reverses
 #' the order of the sequence.
 #'
-#' @param serie A numeric vector containing only 0s and 1s.
+#' @author linapeter
+#'
+#' @param sequence A numeric vector containing only 0s and 1s.
 #'
 #' @return
 #' A numeric vector corresponding to the inverted and reversed input sequence.
@@ -48,11 +50,7 @@
 #'
 #' @export
 #'
-invert__ <- function(serie){
-    serie <- 1 - serie
-
-    return (rev(serie))
-}
+invert__ <- function(sequence) sequence <- 1 - sequence
 
 #' Generate the Dragon Curve turn sequence
 #'
@@ -62,7 +60,9 @@ invert__ <- function(serie){
 #' appends a right turn (represented by 1) followed by the inverted and
 #' reversed version of the previous sequence.
 #'
-#' @param interations An integer indicating the number of iterations
+#' @author linapeter
+#'
+#' @param - iterations An integer indicating the number of iterations
 #' to be performed.
 #'
 #' @details
@@ -76,18 +76,18 @@ invert__ <- function(serie){
 #' in the Dragon Curve construction.
 #'
 #' @examples
-#' dragon_step(1)
-#' dragon_step(3)
+#' dragon_curve(1)
+#' dragon_curve(3)
 #'
 #' @inherit invert__ return details
 #'
 #' @export
 #'
-dragon_step <- function(interations){
-    sequence <- c()
+dragon_curve <- function(iterations){
+    sequence <- integer(0)
 
-    for (step in 1:interations){
-        sequence <- c(sequence,1,invert__(sequence))
+    for (step in 1:iterations){
+        sequence <- c(sequence,1,invert__(rev(sequence)))
     }
     return (sequence)
 }
