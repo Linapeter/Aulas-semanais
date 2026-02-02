@@ -59,7 +59,7 @@
 #'
 #' @author linapeter
 #'
-#' @param sequence A numeric vector.
+#' @param - sequence A numeric vector.
 #'
 #' @details
 #' For a sequence \eqn{(x_1, x_2, \dots, x_n)}, the result is

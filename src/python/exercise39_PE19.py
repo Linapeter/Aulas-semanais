@@ -16,6 +16,7 @@
 
 from datetime import date
 
+
 class calendar:
     """A class for basic calendar computations based on the Gregorian calendar.
 
@@ -197,7 +198,6 @@ class calendar:
         return total
 
 
-
 def first_of_month(weekday: str, start: date, final: date) -> int:
     """
     Count how many times the first day of a month falls on a given weekday
@@ -220,7 +220,7 @@ def first_of_month(weekday: str, start: date, final: date) -> int:
 
     while date(year, month, 1) <= final:
 
-        count += (date(year, month, 1).weekday() == weekday_int) # if TRUE += 1 else += 0
-        month, year = (1, year + 1) if month == 12 else (month+1, year)
+        count += date(year, month, 1).weekday() == weekday_int  # if TRUE += 1 else += 0
+        month, year = (1, year + 1) if month == 12 else (month + 1, year)
 
     return count

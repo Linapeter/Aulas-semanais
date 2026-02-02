@@ -22,6 +22,4 @@
 #'
 #' @export
 #'
-sum_squares_difference <- function(limit){
-    return ((sum(c(1:limit)))^2 - sum(c(1:limit)^2))
-}
+sum_squares_difference <- function(limit) sum(c(1:limit))^2 - sum(c(1:limit)^2)

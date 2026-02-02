@@ -102,7 +102,7 @@
         "whoami",
         "withr"
       ],
-      "Config/Needs/website": "r-lib/asciicast, bench, brio, cpp11, decor, desc, fansi, prettyunits, sessioninfo, tidyverse/tidytemplate, usethis, vctrs",
+      "Config/Needs/website": "r-lib/asciicast, bench, brio, cpp11, decor, desc, fansi, prettyunits, sessioninfo, tidyverse/tidy, usethis, vctrs",
       "Config/testthat/edition": "3",
       "Encoding": "UTF-8",
       "RoxygenNote": "7.3.2",
@@ -191,7 +191,7 @@
         "testthat (>= 3.0.0)",
         "withr"
       ],
-      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/Needs/website": "tidyverse/tidy",
       "Config/testthat/edition": "3",
       "Encoding": "UTF-8",
       "RoxygenNote": "7.3.2",

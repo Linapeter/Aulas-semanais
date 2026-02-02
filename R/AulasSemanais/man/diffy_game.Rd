@@ -7,8 +7,6 @@
 diffy_game(sequence)
 }
 \arguments{
-\item{sequence}{A numeric vector.}
-
 \item{-}{sequence A numeric vector or an object coercible to a numeric vector.}
 }
 \value{

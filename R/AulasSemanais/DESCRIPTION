@@ -17,13 +17,16 @@ Suggests:
     goodpractice,
     knitr,
     lintr,
-    pkgdown,
     rmarkdown,
     roxygen2,
     spelling,
     testthat (>= 3.0.0)
 Imports: 
     assertthat,
-    magrittr
+    magrittr,
+    pkgdown (>= 2.2.0)
 Language: en-US
 Config/testthat/edition: 3
+Remotes: 
+    r-lib/pkgdown
+VignetteBuilder: knitr

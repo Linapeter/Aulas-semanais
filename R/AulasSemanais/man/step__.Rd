@@ -7,7 +7,7 @@
 step__(sequence)
 }
 \arguments{
-\item{sequence}{A numeric vector.}
+\item{-}{sequence A numeric vector.}
 }
 \value{
 A numeric vector of the same length as \code{sequence}, containing the
