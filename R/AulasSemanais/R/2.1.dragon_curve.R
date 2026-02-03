@@ -86,8 +86,8 @@ invert__ <- function(sequence) sequence <- 1 - sequence
 dragon_curve <- function(iterations){
     sequence <- integer(0)
 
-    for (step in 1:iterations){
-        sequence <- c(sequence,1,invert__(rev(sequence)))
+    for (step in 1:(iterations)){
+        sequence <- c(sequence, 1, invert__(rev(sequence)))
     }
     return (sequence)
 }

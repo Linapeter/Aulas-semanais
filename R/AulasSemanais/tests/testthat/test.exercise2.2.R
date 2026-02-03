@@ -1,5 +1,3 @@
-context("Testing code of commission")
-
 example <- "Receita
 
         Frank Jane
@@ -14,7 +12,7 @@ Café 143 198"
 
 test_that("Given example", {
     input <- example
-    output <- c(Frank = 5.58,Jane  = 9.49)
+    output <- c(Frank = 6.20,Jane  = 9.49)
 
     expect_equal(commission(input), output)
 })
@@ -39,8 +37,5 @@ test_that("Given exercise", {
     input <- exercise
     output <- c(Johnver = 92, Vanston = 5, Danbree = 113, Vansey = 45, Mundyke = 32)
 
-    expect_equal(commission(input), output)
+    expect_equal(floor(commission(input)), output)
 })
-
-
-

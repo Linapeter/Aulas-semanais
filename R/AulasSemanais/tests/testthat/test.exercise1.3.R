@@ -3,7 +3,7 @@ read_file <- function() {
   path <- system.file("data", "exercise8_PE.txt", package = "AulasSemanais")
   content <- readLines(path)
   content <- gsub("\\s+", "", content)
-  as.numeric(strsplit(content, "")[[1]])
+  as.numeric(strsplit(paste0(content, collapse = ""), "")[[1]])
 }
 
 

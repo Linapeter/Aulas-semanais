@@ -83,3 +83,25 @@
 # 0437020214873361352055818843664073456138
 # 3858604586068245520287541000014334760058
 # 5840781588142205318614583635575571714673
+
+
+recognize_matrix <- function(input){
+
+    input <- as.numeric(unlist(strsplit(input, "")))
+
+    dimension <- input[1]
+    data_values <- na.omit(input[-1])
+
+    if (length(data_values) != dimension*dimension){
+        stop("The number of data values does not match the specified dimension")
+    }
+
+    matrix(data_values, nrow = dimension, ncol = dimension, byrow = TRUE)
+}
+
+is_prime <- function(number) {
+  if (number <= 1) return(FALSE)
+  if (number == 2 || number == 3) return(TRUE)
+  all(number %% 2:floor(sqrt(number)) != 0)
+}
+

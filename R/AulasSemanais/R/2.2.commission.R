@@ -47,40 +47,28 @@
 #             Johnver Vanston Danbree Vansey Mundyke
 # Comissão 92 5 113 45 32
 
-entrada <- "Receita
 
-        Frank Jane
-Chá 120 145
-Café 243 265
-
-Despesas
-
-        Frank Jane
-Chá 130 59
-Café 143 198
-"
-
-#' commission
+#' Commission
 #'
 #' @description
-#' This function calculates commission values based on revenue and expense
-#' tables provided in a single text input.
+#' Calculates commission values based on revenue and expense tables
+#' provided in a single text input.
 #'
-#' @author
-#' linapeter
+#' @author linapeter
 #'
-#' @param - input Character. A text string containing two tabular sections:
-#' revenue and expenses, separated by the keyword \code{"Expenses"}.
+#' @param input Character. A text string containing two tabular sections:
+#' a revenue table and an expense table, separated by the keyword
+#' \code{"Despesas"}.
 #'
 #' @details
-#' The input text is split at the keyword \code{"Expenses"}.
+#' The input text is split at the keyword \code{"Despesas"}.
 #' The first section is interpreted as a revenue table and the second as
-#' an expense table. The commission is computed as 6.2\% of the column-wise
-#' difference between revenue and expenses.
+#' an expense table. The commission is computed as 6.2\% of the
+#' column-wise sum of (revenue minus expenses) if this amount is positive.
 #'
 #' @return
-#' A numeric vector containing the commission for each column, rounded
-#' to two decimal places.
+#' A numeric vector containing the commission for each column,
+#' rounded to two decimal places.
 #'
 #' @examples
 #' text <- "Receita
@@ -104,19 +92,18 @@ commission <- function(input){
     split <- strsplit(input, "Despesas")[[1]]
 
     receita <- read.table(
-      text = gsub("Receita", "", split[1]),
+      text = gsub(paste0("^\\s*", "Receita"), "", split[1]),
       header = TRUE,
       row.names = 1,
       check.names = FALSE
     )
 
     despesas <- read.table(
-      text = split[2],
+      text = gsub(paste0("^\\s*", "Despesas"), "", split[2]),
       header = TRUE,
       row.names = 1,
       check.names = FALSE
     )
 
-    round((colSums(receita - despesas))*0.062, 2)
+    round(apply(receita - despesas, 2, function(item) sum(item[item > 0])*0.062),2)
 }
-

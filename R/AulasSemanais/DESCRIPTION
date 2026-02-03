@@ -24,6 +24,7 @@ Suggests:
 Imports: 
     assertthat,
     magrittr,
+    pandoc,
     pkgdown (>= 2.2.0)
 Language: en-US
 Config/testthat/edition: 3

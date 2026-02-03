@@ -75,53 +75,96 @@
 #' @keywords internal
 #'
 step__ <- function(sequence){
-    first <- sequence[1]
-    for (index in 1:(length(sequence)-1)){
-        sequence[index] <- abs(sequence[index] - sequence[index+1])
-    }
-    sequence[length(sequence)] <- abs(first - sequence[length(sequence)])
-
-    return (sequence)
+  c(
+    abs(sequence[-length(sequence)] - sequence[-1]),
+    abs(sequence[1] - sequence[length(sequence)])
+  )
 }
 
-#' Diffy Game
+#' Ducci (Diffy) Sequence
 #'
 #' @description
-#' This function repeatedly applies the Diffy Game transformation
-#' (see `step__`) to a numeric sequence until one of the following
-#' stopping criteria is met:
+#' Applies the Ducci (also known as Diffy Game) transformation repeatedly
+#' to a numeric sequence. At each iteration, the sequence is replaced by
+#' the absolute differences between consecutive elements, with the last
+#' element defined as the absolute difference between the first and last
+#' elements of the previous sequence (see `step__`).
+#'
+#' The process stops when one of the following conditions is met:
 #' \itemize{
-#'   \item all elements are zero;
-#'   \item the sequence stabilizes (the next sequence equals the previous one).
+#'   \item all elements of the sequence are zero;
+#'   \item the sequence is repeated (the sequence appeared once already).
 #' }
 #'
 #' @author linapeter
 #'
-#' @param - sequence A numeric vector or an object coercible to a numeric vector.
+#' @param sequence
+#' A numeric vector or an object coercible to a numeric vector.
 #'
 #' @details
-#' At each iteration, the function prints the updated sequence.
-#' The process stops when the sequence reaches the zero vector or a fixed point.
+#' At each iteration, the updated sequence is printed to the console.
+#' The initial sequence counts as the first step.
 #'
 #' @return
-#' An integer indicating the number of iterations performed.
+#' An integer giving the number of iterations performed until the stopping
+#' criterion is reached.
 #'
 #' @examples
-#' diffy_game(c(1, 5, 3, 9))
-#'
-#' @inherit step__
+#' ducci_sequence(c(1, 5, 7, 9, 9))
+#' ducci_sequence(c(1, 2, 1, 2, 1, 0))
 #'
 #' @export
 #'
-diffy_game <- function(sequence){
+ducci_sequence <- function(sequence){
     sequence <- unlist(sequence)
-    acc <- 0
+    acc <- 1
+    seen <- list()
 
-    while (any(sequence != 0) && !identical(prev_sequence == sequence)){
-        prev_sequence <- sequence
+    while (any(sequence != 0)){
+        key <- paste(sequence, collapse = ",")
+
+        if (key %in% seen){
+            break
+        }
+
+        seen <- c(seen,key)
+
         sequence <- step__(sequence)
-        print(sequence)
         acc <- acc + 1
     }
     return (acc)
 }
+
+#' Diffy Game for Multiple Sequences
+#'
+#' @description
+#' Applies the Ducci (Diffy Game) process to multiple sequences.
+#' Each sequence is processed independently using `ducci_sequence()`.
+#'
+#' @author linapeter
+#'
+#' @param sequences
+#' A list of numeric vectors (or objects coercible to numeric vectors),
+#' each representing an initial sequence for the Diffy Game.
+#'
+#' @return
+#' A vector of integers, where each element corresponds to the number of
+#' iterations performed for the respective input sequence.
+#'
+#' @details
+#' This function is a thin wrapper around `lapply()`, delegating the
+#' computation to `ducci_sequence()` for each element of `sequences`.
+#'
+#' @examples
+#' seqs <- list(
+#'   c(1, 5, 7, 9, 9),
+#'   c(1, 2, 1, 2, 1, 0),
+#'   c(10, 12, 41, 62, 31, 50),
+#'   c(10, 12, 41, 62, 31)
+#' )
+#'
+#' diffy_game(seqs)
+#'
+#' @export
+#'
+diffy_game <- function(sequences) unlist(lapply(sequences, ducci_sequence))
