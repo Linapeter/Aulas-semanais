@@ -101,7 +101,9 @@ recognize_matrix <- function(input){
 
 is_prime <- function(number) {
   if (number <= 1) return(FALSE)
-  if (number == 2 || number == 3) return(TRUE)
+  if (number <= 3) return(TRUE)
   all(number %% 2:floor(sqrt(number)) != 0)
 }
+
+
 
