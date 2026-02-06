@@ -10,7 +10,8 @@ leap(year)
 \item{-}{year Integer. A positive number indicating the year in question}
 }
 \value{
-A logical value: \code{TRUE} if the year is a leap year, \code{FALSE} otherwise.
+A logical value: \code{TRUE} if the year is a leap year,
+\code{FALSE} otherwise.
 }
 \description{
 This function returns whether the year is a leap year or not

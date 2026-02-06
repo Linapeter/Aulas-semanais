@@ -2,31 +2,35 @@
 % Please edit documentation in R/2.3.ducci_sequence.R
 \name{diffy_game}
 \alias{diffy_game}
-\title{Diffy Game}
+\title{Diffy Game for Multiple Sequences}
 \usage{
-diffy_game(sequence)
+diffy_game(sequences)
 }
 \arguments{
-\item{-}{sequence A numeric vector or an object coercible to a numeric vector.}
+\item{sequences}{A list of numeric vectors (or objects coercible to numeric vectors),
+each representing an initial sequence for the Diffy Game.}
 }
 \value{
-An integer indicating the number of iterations performed.
+A vector of integers, where each element corresponds to the number of
+iterations performed for the respective input sequence.
 }
 \description{
-This function repeatedly applies the Diffy Game transformation
-(see \code{step__}) to a numeric sequence until one of the following
-stopping criteria is met:
-\itemize{
-\item all elements are zero;
-\item the sequence stabilizes (the next sequence equals the previous one).
-}
+Applies the Ducci (Diffy Game) process to multiple sequences.
+Each sequence is processed independently using \code{ducci_sequence()}.
 }
 \details{
-At each iteration, the function prints the updated sequence.
-The process stops when the sequence reaches the zero vector or a fixed point.
+This function is a thin wrapper around \code{lapply()}, delegating the
+computation to \code{ducci_sequence()} for each element of \code{sequences}.
 }
 \examples{
-diffy_game(c(1, 5, 3, 9))
+seqs <- list(
+  c(1, 5, 7, 9, 9),
+  c(1, 2, 1, 2, 1, 0),
+  c(10, 12, 41, 62, 31, 50),
+  c(10, 12, 41, 62, 31)
+)
+
+diffy_game(seqs)
 
 }
 \author{

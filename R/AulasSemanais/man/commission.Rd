@@ -2,27 +2,28 @@
 % Please edit documentation in R/2.2.commission.R
 \name{commission}
 \alias{commission}
-\title{commission}
+\title{Commission}
 \usage{
 commission(input)
 }
 \arguments{
-\item{-}{input Character. A text string containing two tabular sections:
-revenue and expenses, separated by the keyword \code{"Expenses"}.}
+\item{input}{Character. A text string containing two tabular sections:
+a revenue table and an expense table, separated by the keyword
+\code{"Despesas"}.}
 }
 \value{
-A numeric vector containing the commission for each column, rounded
-to two decimal places.
+A numeric vector containing the commission for each column,
+rounded to two decimal places.
 }
 \description{
-This function calculates commission values based on revenue and expense
-tables provided in a single text input.
+Calculates commission values based on revenue and expense tables
+provided in a single text input.
 }
 \details{
-The input text is split at the keyword \code{"Expenses"}.
+The input text is split at the keyword \code{"Despesas"}.
 The first section is interpreted as a revenue table and the second as
-an expense table. The commission is computed as 6.2\\% of the column-wise
-difference between revenue and expenses.
+an expense table. The commission is computed as 6.2\\% of the
+column-wise sum of (revenue minus expenses) if this amount is positive.
 }
 \examples{
 text <- "Receita

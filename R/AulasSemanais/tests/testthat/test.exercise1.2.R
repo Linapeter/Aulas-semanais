@@ -1,5 +1,3 @@
-context("Testing problem of LeapYears - Exercism")
-
 test_that("year not divisible by 4: common year", {
   year <- 2015
   expect_false(leap(year))

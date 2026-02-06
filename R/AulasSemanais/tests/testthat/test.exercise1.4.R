@@ -1,5 +1,3 @@
-context("Testing problem of WordCount - Exercism")
-
 # When comparing lists, all.equal expects the objects to be in the same order
 # This expectation instead checks that a) the set of names are the same and
 # b) each named object is equal

@@ -9,7 +9,7 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-URL: https://github.com/Linapeter/Aulas-semanais
+URL: https://github.com/Linapeter/Aulas-semanais, https://linapeter.github.io/Aulas-semanais/
 BugReports: https://github.com/Linapeter/Aulas-semanais/issues
 Suggests: 
     covr,
@@ -23,6 +23,7 @@ Suggests:
     testthat (>= 3.0.0)
 Imports: 
     assertthat,
+    gmp,
     magrittr,
     pandoc,
     pkgdown (>= 2.2.0)

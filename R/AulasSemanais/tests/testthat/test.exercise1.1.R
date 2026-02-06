@@ -1,4 +1,4 @@
-context("Testing problem 6 - Project Euler")
+
 
 test_that("Given example", {
     input <- 10

@@ -11,5 +11,4 @@
 from math import factorial
 
 def factorial_sum_digits(number: int) -> int:
-    digits = str(factorial(number))
-    return sum(int(digit) for digit in digits)
+    return sum(int(digit) for digit in str(factorial(number)))

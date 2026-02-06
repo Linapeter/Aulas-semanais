@@ -1,8 +1,8 @@
 #' sum_squares_difference
 #'
 #' @description
-#' This function returns the difference between Sum of squares and Square of sums,
-#' beginning on 1 until limit.
+#' This function returns the difference between Sum of squares and Square of
+#' sums, beginning on 1 until limit.
 #'
 #' @author linapeter
 #'

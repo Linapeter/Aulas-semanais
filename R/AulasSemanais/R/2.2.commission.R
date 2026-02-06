@@ -85,6 +85,8 @@
 #'
 #' commission(text)
 #'
+#' @importFrom utils read.table
+#'
 #' @export
 #'
 commission <- function(input){

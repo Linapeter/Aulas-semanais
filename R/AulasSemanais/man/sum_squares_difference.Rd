@@ -15,8 +15,8 @@ A numeric value representing the difference between the square of the sum
 and the sum of the squares from 1 to \code{limit}.
 }
 \description{
-This function returns the difference between Sum of squares and Square of sums,
-beginning on 1 until limit.
+This function returns the difference between Sum of squares and Square of
+sums, beginning on 1 until limit.
 }
 \details{
 This function corresponds to Problem 6 of the Project Euler problem set.
