@@ -105,11 +105,8 @@ def tally(rows: list[str]) -> list[str]:
 
     for row in rows:
         team1, team2, result = row.split(";")
-        if team1 not in teams:
-            teams[team1] = array([0, 0, 0, 0, 0])
-        if team2 not in teams:
-            teams[team2] = array([0, 0, 0, 0, 0])
-            # python get_default()
+        teams.setdefault(team1, array([0, 0, 0, 0, 0]))
+        teams.setdefault(team2, array([0, 0, 0, 0, 0]))
 
         if result == "win":
             teams[team1] += array([1, 1, 0, 0, 3])

@@ -109,38 +109,115 @@
 
 # subclassing the built-in ValueError to create MeetupDayException
 
-from calendar import day_name, monthcalendar
+from calendar import day_name, month_name, monthcalendar
 from datetime import date
 
-# class MeetupDayException(ValueError):
-#     def __init__(self, message) -> None:
-#         pass
+class MeetupError(ValueError):
+    """
+    Base exception for meetup-related errors.
 
+    This exception represents errors that occur when computing
+    a meetup date with invalid or non-existent constraints.
+    """
+    default_message = "That day does not exist."
 
-# raise MeetupDayException("That day does not exist.")
+    def __init__(self, message: None | str = None) -> None:
+        """Initialize the exception.
 
+        Parameters
+        ----------
+        message : str | None, optional
+            Custom error message. If None, a default message is used.
+        """
+        super().__init__(message or self.default_message)
 
-def meetup(
-    year: int,
-    month: int,
-    week: str,
-    day_of_week: str,
-) -> date:
-    weekday = list(day_name).index(day_of_week)
-    month_matrix = monthcalendar(year, month)
-    days = [row[weekday] for row in month_matrix if row[weekday] != 0]
+class MeetupDayException(MeetupError):
+    """
+    Raised when the requested meetup day does not exist
+    for the given month, week, and weekday.
+    """
+    pass
 
-    if week == "teenth":
-        day = next(day for day in days if 13 <= day <= 19)
-        return date(year, month, day)
+class MeetUp:
+    """
+    Represents a meetup defined by a year, month, week descriptor,
+    and weekday.
 
-    week_index = {
-        "first": 0,
-        "second": 1,
-        "third": 2,
-        "fourth": 3,
-        "last": -1,
-    }
-    day = days[week_index[week]]
+    The meetup date can be computed according to rules such as:
+    - first Monday
+    - second Tuesday
+    - teenth Wednesday
+    - last Friday
+    """
 
-    return date(year, month, day)
+    def __init__(
+        self,
+        year: int,
+        month: int,
+        week: str,
+        weekday: str,
+    ) -> None:
+        """
+        Initialize a MeetUp instance.
+
+        Parameters
+        ----------
+        year : int
+            The year of the meetup.
+        month : int
+            The month of the meetup (1–12).
+        week : str
+            Week descriptor: 'first', 'second', 'third',
+            'fourth', 'last', or 'teenth'.
+        weekday : str
+            Name of the weekday (e.g. 'Monday', 'Tuesday').
+        """
+        self.year = year
+        self.month = month
+        self.week = week
+        self.weekday = list(day_name).index(weekday)
+
+    def __repr__(self) -> str:
+        """
+        Return a developer-friendly string representation
+        of the MeetUp instance.
+        """
+        return f"Meet up at {self.week} {day_name[self.weekday]} on {month_name[self.month]} of {self.year}"
+
+    def meetup(self) -> date:
+        """
+        Compute and return the meetup date.
+
+        Returns
+        -------
+        datetime.date
+            The calculated meetup date.
+
+        Raises
+        ------
+        MeetupDayException
+            If the requested meetup day does not exist
+            for the given parameters.
+        """
+        month_matrix = monthcalendar(self.year, self.month)
+        days = [row[self.weekday] for row in month_matrix if row[self.weekday] != 0]
+
+        if self.week == "teenth":
+            for day in days:
+                if 13 <= day <= 19:
+                    return date(self.year, self.month, day)
+            raise MeetupDayException()
+
+        week_index = {
+            "first": 0,
+            "second": 1,
+            "third": 2,
+            "fourth": 3,
+            "last": -1,
+        }
+
+        try:
+            day = days[week_index[self.week]]
+            return date(self.year, self.month, day)
+        except (KeyError, IndexError):
+            raise MeetupDayException()

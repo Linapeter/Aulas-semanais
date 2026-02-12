@@ -1,7 +1,7 @@
 from datetime import date
 
 import pytest
-from python.exercise42_meetup import meetup
+from python.exercise42_meetup import MeetUp, MeetupDayException, MeetupError
 
 
 @pytest.mark.parametrize(
@@ -32,7 +32,7 @@ from python.exercise42_meetup import meetup
     ],
 )
 def test_teenth(year: int, month: int, weekday: str, expected: date) -> None:
-    assert meetup(year, month, "teenth", weekday) == expected
+    assert MeetUp(year, month, "teenth", weekday).meetup() == expected
 
 @pytest.mark.parametrize(
     "year, month, week, weekday, expected",
@@ -72,7 +72,7 @@ def test_teenth(year: int, month: int, weekday: str, expected: date) -> None:
     ],
 )
 def test_weeks(year: int, month: int, week: str, weekday: str, expected: date) -> None:
-    assert meetup(year, month, week, weekday) == expected
+    assert MeetUp(year, month, week, weekday).meetup() == expected
 
 @pytest.mark.parametrize(
     "year, month, week, weekday",
@@ -84,4 +84,4 @@ def test_weeks(year: int, month: int, week: str, weekday: str, expected: date) -
 )
 def test_nonexistent_meetup_raises(year: int, month: int, week: str, weekday: str) -> None:
     with pytest.raises(MeetupDayException, match="That day does not exist."):
-        meetup(year, month, week, weekday)
+        MeetUp(year, month, week, weekday).meetup()

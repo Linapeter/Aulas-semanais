@@ -11,4 +11,20 @@
 from math import factorial
 
 def factorial_sum_digits(number: int) -> int:
+    """
+    Compute the sum of the digits of the factorial of a given number.
+
+    This function calculates the factorial of the input integer and then
+    returns the sum of all digits in its decimal representation.
+
+    Parameters
+    ----------
+    number : int
+        A non-negative integer whose factorial will be computed.
+
+    Returns
+    -------
+    int
+        The sum of the digits of the factorial of the given number.
+    """
     return sum(int(digit) for digit in str(factorial(number)))
