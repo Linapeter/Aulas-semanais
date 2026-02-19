@@ -1,4 +1,4 @@
-from python.exercise25_PE12 import len_div_triangle, len_div_triangle_number
+from exercises.exercise25_PE12 import len_div_triangle, len_div_triangle_number
 
 def test_exercise25() -> None:
     assert 28 == len_div_triangle(5)

@@ -9,7 +9,7 @@
 
 # Evaluate the sum of all the amicable numbers under 10_000.
 
-from python.exercise20_PrimesMultiples import multiples
+from exercises.exercise20_PrimesMultiples import multiples
 
 def divisors_sum(number:int) -> int:
     """Compute the sum of proper divisors of a positive integer.

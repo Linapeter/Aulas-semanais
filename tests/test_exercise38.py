@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise38_KillerSudoku import KillerSudoku
+from exercises.exercise38_KillerSudoku import KillerSudoku
 
 
 # ----------------------------------

@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise36_ChangeCoins import find_fewest_coins
+from exercises.exercise36_ChangeCoins import find_fewest_coins
 
 
 @pytest.mark.parametrize(

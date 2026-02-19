@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise22_SpellOutNumbers import spell_our_numbers
+from exercises.exercise22_SpellOutNumbers import spell_our_numbers
 
 
 @pytest.mark.parametrize(

@@ -1,7 +1,7 @@
 from os.path import join
 from pathlib import Path
 
-from python.exercise37_PE18 import maximum_path_sum
+from exercises.exercise37_PE18 import maximum_path_sum
 
 triangle = str(
     "\n".join(

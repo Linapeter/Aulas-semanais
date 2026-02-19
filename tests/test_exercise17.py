@@ -3,7 +3,7 @@ from math import pi
 import pytest
 from pytest import approx
 
-from python.exercise17_ComplexNumbers import complex_numbers
+from exercises.exercise17_ComplexNumbers import complex_numbers
 
 
 @pytest.mark.parametrize(

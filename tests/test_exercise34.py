@@ -1,6 +1,6 @@
 import re
 
-from python.exercise34_VigenèreCipher import Cipher
+from exercises.exercise34_VigenèreCipher import Cipher
 
 
 def test_can_encode_random_key() -> None:

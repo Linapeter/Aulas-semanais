@@ -1,4 +1,4 @@
-from python.exercise12_rotateROT import rotate
+from exercises.exercise12_rotateROT import rotate
 
 import pytest
 

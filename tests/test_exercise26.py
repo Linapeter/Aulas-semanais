@@ -2,7 +2,7 @@ from typing import List
 
 import pytest
 
-from python.exercise26_SliceSeries import slice_series
+from exercises.exercise26_SliceSeries import slice_series
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-from python.exercise14_MatchingBrackets import is_paired
+from exercises.exercise14_MatchingBrackets import is_paired
 
 
 def test_is_paired_cases() -> None:

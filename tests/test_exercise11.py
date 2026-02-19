@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise11_piglatin import translate
+from exercises.exercise11_piglatin import translate
 
 
 @pytest.mark.parametrize(

@@ -9,7 +9,7 @@
 # 23 letter and 115 (one hundred and fifteen) contains 20 letters.
 # The use of "and" when writing out numbers is in compliance with British usage.
 
-from python.exercise22_SpellOutNumbers import spell_our_numbers
+from exercises.exercise22_SpellOutNumbers import spell_our_numbers
 
 
 def counting(

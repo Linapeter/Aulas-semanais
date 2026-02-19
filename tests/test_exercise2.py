@@ -1,6 +1,6 @@
 from typing import Any
 
-from python.exercise2_students import students
+from exercises.exercise2_students import students
 
 
 def test_roster_is_empty_when_no_student_is_added() -> None:

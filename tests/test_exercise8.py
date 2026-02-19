@@ -1,5 +1,5 @@
 
-from python.exercise8_SpaceAge import SpaceAge
+from exercises.exercise8_SpaceAge import SpaceAge
 
 def test_age_on_earth() -> None:
     assert SpaceAge(1_000_000_000).on_earth() == 31.69

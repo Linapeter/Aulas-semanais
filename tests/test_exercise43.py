@@ -1,4 +1,4 @@
-from python.exercise43_PE21 import amicable, amicable_pairs
+from exercises.exercise43_PE21 import amicable, amicable_pairs
 
 def test_exercise43() -> None:
     assert 31_626 == amicable_pairs(10_000), "Failed test with function that uses multiples primes."

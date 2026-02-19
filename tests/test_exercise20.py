@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise20_PrimesMultiples import multiples
+from exercises.exercise20_PrimesMultiples import multiples
 
 
 @pytest.mark.parametrize(

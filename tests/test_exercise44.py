@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise44_TwoBucket import TwoBucket
+from exercises.exercise44_TwoBucket import TwoBucket
 
 
 def test_measure_3_5_goal_1_start_one() -> None:

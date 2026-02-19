@@ -1,6 +1,6 @@
 import pytest
 
-from python.exercise40_Tournaments import tally
+from exercises.exercise40_Tournaments import tally
 
 HEADER = "Team                           | MP |  W |  D |  L |  P"
 

@@ -1,7 +1,7 @@
 from datetime import date
 
 import pytest
-from python.exercise42_meetup import MeetUp, MeetupDayException, MeetupError
+from exercises.exercise42_meetup import MeetUp, MeetupDayException, MeetupError
 
 
 @pytest.mark.parametrize(

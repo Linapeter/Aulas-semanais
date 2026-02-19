@@ -1,7 +1,7 @@
 import pytest
 from pytest import approx
 
-from python.exercise18_RationalNumbers import Rational
+from exercises.exercise18_RationalNumbers import Rational
 
 
 @pytest.mark.parametrize(
