@@ -11,10 +11,6 @@
 
 from python.exercise20_PrimesMultiples import multiples
 
-# ex: multiplos primos de 20: [2,2,5,11] -> 2^2, 5^1, 11^1
-# (p = 2, a =2), (p = 5, a = 1), (p = 11, a = 1)
-# formula: sigma(n) = prod( (p^(a+1)-1) / (p-1) )
-
 def divisors_sum(number:int) -> int:
     """Compute the sum of proper divisors of a positive integer.
 
@@ -45,7 +41,7 @@ def divisors_sum(number:int) -> int:
       of `number`, including repetitions.
     - Time complexity depends on the efficiency of `multiples`.
     """
-    factors: list[int] = multiples(number)
+    factors = multiples(number)
     sigma = 1
 
     for factor in set(factors):

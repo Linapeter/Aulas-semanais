@@ -65,19 +65,57 @@
 
 
 from math import gcd
+from typing import Literal
+
+bucket_kind = Literal["one", "two"]
 
 
 class TwoBucket:
+    """
+    Solve the classic two-bucket (water jug) problem.
+
+    This class simulates two buckets with fixed capacities and allows
+    filling, emptying, and pouring water between them in order to
+    measure an exact target volume.
+    """
+
     def __init__(
         self,
         bucket_one: int,
         bucket_two: int,
     ) -> None:
+        """
+        Initialize the TwoBucket problem with the given bucket capacities.
+
+        Parameters
+        ----------
+        bucket_one : int
+            Capacity of the first bucket.
+        bucket_two : int
+            Capacity of the second bucket.
+        """
         self.bucket_one = 0
         self.bucket_two = 0
         self.capacity = (bucket_one, bucket_two)
 
-    def pouring_into(self, receptor: str) -> tuple[int, int]:
+    def pouring_into(self, receptor: bucket_kind) -> tuple[int, int]:
+        """
+        Pour water from the opposite bucket into the specified receptor bucket.
+
+        The transfer stops when either:
+        - The source bucket becomes empty, or
+        - The receptor bucket becomes full.
+
+        Parameters
+        ----------
+        receptor : str
+            The bucket that will receive water ("one" or "two").
+
+        Returns
+        -------
+        tuple[int, int]
+            The current amounts of water in bucket one and bucket two.
+        """
         if receptor == "one":
             quantity = min(self.bucket_two, self.capacity[0] - self.bucket_one)
             self.bucket_one += quantity
@@ -90,7 +128,20 @@ class TwoBucket:
 
         return (self.bucket_one, self.bucket_two)
 
-    def empty(self, bucket: str) -> tuple[int, int]:
+    def empty(self, bucket: bucket_kind) -> tuple[int, int]:
+        """
+        Empty the specified bucket.
+
+        Parameters
+        ----------
+        bucket : str
+            The bucket to empty ("one" or "two").
+
+        Returns
+        -------
+        tuple[int, int]
+            The current amounts of water in bucket one and bucket two.
+        """
         if bucket == "one":
             self.bucket_one = 0
         elif bucket == "two":
@@ -98,7 +149,20 @@ class TwoBucket:
 
         return (self.bucket_one, self.bucket_two)
 
-    def fill(self, bucket: str) -> tuple[int, int]:
+    def fill(self, bucket: bucket_kind) -> tuple[int, int]:
+        """
+        Fill the specified bucket to its maximum capacity.
+
+        Parameters
+        ----------
+        bucket : str
+            The bucket to fill ("one" or "two").
+
+        Returns
+        -------
+        tuple[int, int]
+            The current amounts of water in bucket one and bucket two.
+        """
         if bucket == "one":
             self.bucket_one = self.capacity[0]
         elif bucket == "two":
@@ -109,9 +173,39 @@ class TwoBucket:
     def measure(
         self,
         goal: int,
-        start_bucket: str,
-    ) -> tuple[int, str, int]:
+        start_bucket: bucket_kind,
+    ) -> tuple[int, bucket_kind, int]:
+        """
+        Determine the minimum number of moves required to measure the target volume.
 
+        The algorithm follows a deterministic strategy:
+        - Fill the starting bucket.
+        - Repeatedly pour into the other bucket.
+        - Refill the starting bucket when empty.
+        - Empty the other bucket when full.
+
+        Parameters
+        ----------
+        goal : int
+            The desired amount of water to measure.
+        start_bucket : str
+            The bucket to fill first ("one" or "two").
+
+        Returns
+        -------
+        tuple[int, str, int]
+            A tuple containing:
+            - The number of moves required.
+            - The bucket that contains the goal volume ("one" or "two").
+            - The amount of water in the other bucket.
+
+        Raises
+        ------
+        ValueError
+            If the goal is larger than both bucket capacities or
+            cannot be measured (i.e., it is not a multiple of the
+            greatest common divisor of the capacities).
+        """
         # fill start bucket, tranfer to another, fill start bucket, transfer to another and empty another if full
         # first step
         self.fill(start_bucket)
@@ -149,6 +243,9 @@ class TwoBucket:
 
             moves += 1
 
+        goal_bucket: bucket_kind = "one"
+        another_bucket = 0
+
         if self.bucket_one == goal:
             goal_bucket = "one"
             another_bucket = self.bucket_two
@@ -158,6 +255,3 @@ class TwoBucket:
             another_bucket = self.bucket_one
 
         return (moves, goal_bucket, another_bucket)
-
-
-# self.assertEqual(measure(3, 5, 1, "one"), (4, "one", 5))

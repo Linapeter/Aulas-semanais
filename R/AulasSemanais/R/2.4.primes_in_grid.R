@@ -106,5 +106,42 @@ is_prime <- function(number) {
   all(number %% 2:floor(sqrt(number)) != 0)
 }
 
+primes_count <- function(sequence){
+    acc <- 0
+    for (number in sequence){
+        if (is_prime(number)){
+            acc <- acc + 1
+        }
+    }
+}
+
+primes_in_grid <- function(grid){
+    acc = 0
+    apply(grid, 1, function(linha) {
+        for (i in linha){
+            if (is_prime(i)){
+                acc = acc + 2
+            }
+        }
+    })
+    apply(grid, 2, function(coluna) {
+        for (i in coluna){
+            if (is_prime(i)){
+                acc = acc + 2
+            }
+        }
+    })
+    for i in diag(grid, k = 1){
+        if (is_prime(i)){
+            acc = acc + 2
+        }
+    }
+    for i in diag(grid, k = -1){
+        if (is_prime(i)){
+            acc = acc + 2
+        }
+    }
+}
+
 
 
