@@ -1,9 +1,7 @@
 {
     "editor.formatOnSave": true,
     "python.testing.pytestArgs": [
-        "-vv",
-        "--showlocals",
-        "tests"
+        "src"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,

@@ -65,9 +65,6 @@
 
 
 from math import gcd
-from typing import Literal
-
-bucket_kind = Literal["one", "two"]
 
 
 class TwoBucket:
@@ -98,7 +95,7 @@ class TwoBucket:
         self.bucket_two = 0
         self.capacity = (bucket_one, bucket_two)
 
-    def pouring_into(self, receptor: bucket_kind) -> tuple[int, int]:
+    def pouring_into(self, receptor: str) -> tuple[int, int]:
         """
         Pour water from the opposite bucket into the specified receptor bucket.
 
@@ -128,53 +125,11 @@ class TwoBucket:
 
         return (self.bucket_one, self.bucket_two)
 
-    def empty(self, bucket: bucket_kind) -> tuple[int, int]:
-        """
-        Empty the specified bucket.
-
-        Parameters
-        ----------
-        bucket : str
-            The bucket to empty ("one" or "two").
-
-        Returns
-        -------
-        tuple[int, int]
-            The current amounts of water in bucket one and bucket two.
-        """
-        if bucket == "one":
-            self.bucket_one = 0
-        elif bucket == "two":
-            self.bucket_two = 0
-
-        return (self.bucket_one, self.bucket_two)
-
-    def fill(self, bucket: bucket_kind) -> tuple[int, int]:
-        """
-        Fill the specified bucket to its maximum capacity.
-
-        Parameters
-        ----------
-        bucket : str
-            The bucket to fill ("one" or "two").
-
-        Returns
-        -------
-        tuple[int, int]
-            The current amounts of water in bucket one and bucket two.
-        """
-        if bucket == "one":
-            self.bucket_one = self.capacity[0]
-        elif bucket == "two":
-            self.bucket_two = self.capacity[1]
-
-        return (self.bucket_one, self.bucket_two)
-
     def measure(
         self,
         goal: int,
-        start_bucket: bucket_kind,
-    ) -> tuple[int, bucket_kind, int]:
+        start_bucket: str,
+    ) -> tuple[int, str, int]:
         """
         Determine the minimum number of moves required to measure the target volume.
 
@@ -208,7 +163,10 @@ class TwoBucket:
         """
         # fill start bucket, tranfer to another, fill start bucket, transfer to another and empty another if full
         # first step
-        self.fill(start_bucket)
+        if start_bucket == "one":
+            self.bucket_one = self.capacity[0]
+        elif start_bucket == "two":
+            self.bucket_two = self.capacity[1]
         moves = 1
 
         if (
@@ -217,15 +175,22 @@ class TwoBucket:
         ):
             raise ValueError("Impossible")
 
+        visited = set()
+
         while self.bucket_one != goal and self.bucket_two != goal:
+
+            state = (self.bucket_one, self.bucket_two)
+            if state in visited:
+                raise ValueError("No solution found (loop detected)")
+            visited.add(state)
 
             if start_bucket == "one":
 
                 if self.bucket_one == 0:
-                    self.fill("one")
+                    self.bucket_one = self.capacity[0]
 
                 elif self.bucket_two == self.capacity[1]:
-                    self.empty("two")
+                    self.bucket_two = 0
 
                 else:
                     self.pouring_into("two")
@@ -233,17 +198,30 @@ class TwoBucket:
             else:
 
                 if self.bucket_two == 0:
-                    self.fill("two")
+                    self.bucket_two = self.capacity[1]
 
                 elif self.bucket_one == self.capacity[0]:
-                    self.empty("one")
+                    self.bucket_one = 0
 
                 else:
                     self.pouring_into("one")
 
+            if (
+                start_bucket == "one"
+                and self.bucket_one == 0
+                and self.bucket_two == self.capacity[1]
+            ):
+                raise ValueError("Invalid state: start bucket empty and other full")
+            if (
+                start_bucket == "two"
+                and self.bucket_two == 0
+                and self.bucket_one == self.capacity[0]
+            ):
+                raise ValueError("Invalid state: start bucket empty and other full")
+
             moves += 1
 
-        goal_bucket: bucket_kind = "one"
+        goal_bucket: str = "one"
         another_bucket = 0
 
         if self.bucket_one == goal:
