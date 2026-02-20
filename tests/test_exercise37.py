@@ -6,7 +6,7 @@ from exercises.exercise37_PE18 import maximum_path_sum
 triangle = str(
     "\n".join(
         line.rstrip()
-        for line in Path(join(Path(__file__).parent, "data", "exercise38.txt")).open()
+        for line in Path(join(Path(__file__).parent, "data", "exercise37.txt")).open()
     )
 )
 

@@ -1,4 +1,4 @@
-from exercise5_PE3 import largest_prime
+from exercises.exercise5_PE3 import largest_prime
 
 
 def prime_in_position(position: int) -> int:
