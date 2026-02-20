@@ -39,10 +39,8 @@ def names_scores(names: list[str]) -> int:
         # Total = 42 + 38 + 159 = 239
     """
     names.sort()
-    score = 0
 
-    for position, name in enumerate(names, start=1):
-        name_value = sum((ord(character) - 64) for character in name)
-        score += name_value * (position)
-
-    return score
+    return sum(
+        (sum((ord(character) - 64) for character in name)) * (position)
+        for position, name in enumerate(names, start=1)
+    )

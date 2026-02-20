@@ -1,7 +1,7 @@
 
 from exercises.exercise45_PE22 import names_scores
 
-with open("tests/data/exercise45.txt", "r") as file:
+with open("data/exercise45.txt", "r") as file:
     content = file.read()
 
 names = content.replace('"', '').split(',')

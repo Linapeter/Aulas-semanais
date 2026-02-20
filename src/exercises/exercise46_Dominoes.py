@@ -1,4 +1,3 @@
-
 # Dominoes
 
 # Introduction
@@ -32,16 +31,20 @@
 # Some test cases may use duplicate stones in a chain solution,
 # assume that multiple Domino sets are being used.
 
+
 class Dominoes:
 
-    def __init__(self, pieces: list[tuple[int,int]]) -> None:
+    def __init__(self, pieces: list[tuple[int, int]]) -> None:
         self.pieces = pieces
         self.length = len(self.pieces)
 
     def __repr__(self) -> str:
-        return "[|]"
+        message = ""
+        for piece in self.pieces:
+            message.join(f"[{piece[0]}|{piece[1]}] ")
+        return message
 
-    def swap(self, piece: tuple[int,int]) -> tuple[int,int]:
+    def swap(self, piece: tuple[int, int]) -> tuple[int, int]:
         """
         Swap the two elements of a 2 element tuple.
         Args:
@@ -53,13 +56,13 @@ class Dominoes:
         left, right = piece
         return (right, left)
 
-    def corner_pieces(self) -> list[tuple[int,int]]:
+    def corner_pieces(self) -> list[tuple[int, int]]:
 
         for piece in range(self.length):
             for next in range(piece + 1, self.length):
 
                 common = set(self.pieces[piece]) & set(self.pieces[next])
-                if common: # intersection
+                if common:  # intersection
                     common_value = common.pop()
 
                     if common_value == self.pieces[piece][1]:
@@ -72,7 +75,7 @@ class Dominoes:
 
         raise ValueError("Pieces don't match")
 
-    def can_chain(self) -> list[tuple[int,int]]:
+    def can_chain(self) -> list[tuple[int, int]]:
         corners = self.corner_pieces()
 
         self.pieces.remove(corners[0])
@@ -92,8 +95,6 @@ class Dominoes:
 
                     chain.append(piece)
                     break
-            else:
-                raise ValueError("Cannot complete the chain")
 
         if chain[-1][1] != corners[1][0]:
             raise ValueError("Cannot complete the chain")
@@ -101,5 +102,3 @@ class Dominoes:
         chain.append(corners[1])
 
         return chain
-
-
