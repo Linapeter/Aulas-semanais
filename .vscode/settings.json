@@ -39,4 +39,7 @@
   "mbake.formatOnSave": true,
   "mbake.verbose": true,
   "mbake.showDiff": true,
+  "makefile.configureOnOpen": false,
+  "cSpell.words": ["blau"],
+  "python-envs.defaultEnvManager": "ms-python.python:poetry"
 }

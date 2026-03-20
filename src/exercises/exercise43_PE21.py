@@ -1,3 +1,5 @@
+# Problem 21 - Project Euler
+
 # Let d(n) be defined as the sum of proper divisors of n (numbers less than n
 # which divide evenly into n).
 
@@ -9,9 +11,12 @@
 
 # Evaluate the sum of all the amicable numbers under 10_000.
 
+from collections import Counter
+
 from exercises.exercise20_PrimesMultiples import multiples
 
-def divisors_sum(number:int) -> int:
+
+def divisors_sum(number: int) -> int:
     """Compute the sum of proper divisors of a positive integer.
 
     This function calculates the sum of all proper divisors of `number`
@@ -43,105 +48,60 @@ def divisors_sum(number:int) -> int:
     """
     factors = multiples(number)
     sigma = 1
+    factors_counts = Counter(factors)
 
-    for factor in set(factors):
-        exponent = factors.count(factor)
-        sigma *= (factor**(exponent + 1) - 1) // (factor - 1)
+    for factor, exponent in factors_counts.items():
+        sigma *= (factor ** (exponent + 1) - 1) // (factor - 1)
 
     return sigma - number
 
-def amicable_pairs(number: int) -> int:
-    """Determine whether a number is part of an amicable pair.
 
+def sum_of_amicable_pairs(limit: int) -> int:
+    """
+    Calculate the sum of all amicable numbers under a given limit.
+
+    This function computes the sum of all amicable numbers less than `limit`.
     Two numbers a and b form an amicable pair if:
 
         sum_proper_divisors(a) = b
         sum_proper_divisors(b) = a
         a ≠ b
 
-    This function checks whether `number` satisfies this condition.
-    If so, it returns its amicable partner. Otherwise, it returns 0.
-
-    Parameters
-    ----------
-    number : int
-        A positive integer.
-
-    Returns
-    -------
-    int
-        The amicable partner of `number` if it exists,
-        otherwise 0.
-    """
-    b = divisors_sum(number)
-    if b != number and divisors_sum(b) == number:
-        return b
-    return 0
-
-
-def amicable(limit: int) -> int:
-    """Compute the sum of all amicable numbers below a given limit.
-
-    This function uses a sieve-like approach to efficiently compute
-    the sum of proper divisors for all integers below `limit`.
-    It then identifies amicable pairs and accumulates their values.
-
-    An amicable pair (a, b) satisfies:
-        d(a) = b
-        d(b) = a
-        a ≠ b
-
-    where d(n) is the sum of proper divisors of n.
+    The function uses memoization to cache divisor sums for efficiency.
 
     Parameters
     ----------
     limit : int
-        Upper bound (exclusive). Only numbers less than `limit`
-        are considered.
+        The upper bound (exclusive) for amicable numbers to consider.
 
     Returns
     -------
     int
-        The sum of all amicable numbers below `limit`.
+        The sum of all amicable numbers under the specified limit.
 
     Notes
     -----
-    - Time complexity is approximately O(n log n) due to the sieve.
-    - Each amicable number is counted once.
+    - Uses a cache dictionary to store previously computed divisor sums.
+    - Time complexity depends on the efficiency of `divisors_sum`.
+    - Each amicable pair is counted once (both numbers in the pair are summed).
+    - Only pairs where both numbers are under `limit` are included.
+
+    Example
+    -------
+    >>> amicable_pairs(10_000)
+    31626
     """
-    numbers = [0] * limit
+    cache: dict[int, int] = {}
+    result = 0
 
-    for i in range(1, limit // 2):
-        for j in range(2 * i, limit, i):
-            numbers[j] += i
+    def put_cache(number: int) -> int:
+        if number not in cache:
+            cache[number] = divisors_sum(number)
+        return cache[number]
 
-    total = 0
-    for a in range(2, limit):
-        b = numbers[a]
-        if a != b and b < limit and numbers[b] == a:
-            total += a
+    for a in range(1, limit):
+        b = put_cache(a)
+        if b != a and b < limit and divisors_sum(b) == a and a < b:
+            result += a + b
 
-    return total
-
-
-
-# 1   +1
-# 2   +1
-# 3   +1
-# 4   +1 +2
-# 5   +1
-# 6   +1 +2 +3
-# 7   +1
-# 8   +1 +2    +4
-# 9   +1    +3
-# 10  +1 +2       +5
-# 11  +1
-# 12  +1 +2 +3 +4    +6
-# 13  +1
-# 14  +1 +2             +7
-# 15  +1    +3    +5
-# 16  +1 +2    +4          +8
-# 17  +1
-# 18  +1 +2 +3       +6       +9
-# 19  +1
-# 20  +1 +2    +4 +5             +10
+    return result

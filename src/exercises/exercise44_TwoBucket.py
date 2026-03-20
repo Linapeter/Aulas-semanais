@@ -95,7 +95,10 @@ class TwoBucket:
         self.bucket_two = 0
         self.capacity = (bucket_one, bucket_two)
 
-    def pouring_into(self, receptor: str) -> tuple[int, int]:
+    def pouring_into(
+        self,
+        receptor: str,
+    ) -> tuple[int, int]:
         """
         Pour water from the opposite bucket into the specified receptor bucket.
 
@@ -175,7 +178,7 @@ class TwoBucket:
         ):
             raise ValueError("Impossible")
 
-        visited = set()
+        visited: set[tuple[int, int]] = set()
 
         while self.bucket_one != goal and self.bucket_two != goal:
 

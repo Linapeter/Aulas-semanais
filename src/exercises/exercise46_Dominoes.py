@@ -32,73 +32,98 @@
 # assume that multiple Domino sets are being used.
 
 
-class Dominoes:
+from typing import Iterator
 
-    def __init__(self, pieces: list[tuple[int, int]]) -> None:
+
+class Dominoes:
+    """
+    Represents a collection of domino pieces and provides functionality
+    to determine whether they can be arranged into a closed domino chain.
+    """
+
+    def __init__(
+        self,
+        pieces: list[tuple[int, int]],
+    ) -> None:
+        """
+        Initialize a Dominoes object.
+
+        Args:
+            pieces: A list of domino pieces, where each piece is represented
+                as a tuple of two integers (left_value, right_value).
+        """
         self.pieces = pieces
-        self.length = len(self.pieces)
 
     def __repr__(self) -> str:
-        message = ""
-        for piece in self.pieces:
-            message.join(f"[{piece[0]}|{piece[1]}] ")
-        return message
-
-    def swap(self, piece: tuple[int, int]) -> tuple[int, int]:
         """
-        Swap the two elements of a 2 element tuple.
-        Args:
-            piece (tuple[int, int]): A tuple containing exactly two integers.
+        Return a string representation of the domino pieces.
+
+        Each piece is formatted as [a|b].
+
         Returns:
-            tuple[int, int]: A new tuple with the elements swapped.
-                            For example, (a, b) becomes (b, a).
+            A string showing all domino pieces in sequence.
         """
-        left, right = piece
-        return (right, left)
+        return "".join(f"[{piece[0]}|{piece[1]}] " for piece in self.pieces)
 
-    def corner_pieces(self) -> list[tuple[int, int]]:
+    def get_chain(
+        self,
+        pieces: list[tuple[int, int]],
+        chain: list[tuple[int, int]],
+    ) -> Iterator[list[tuple[int, int]]]:
+        """
+        Recursively explores all possible combinations of dominoes to find a valid chain.
 
-        for piece in range(self.length):
-            for next in range(piece + 1, self.length):
+        This method uses a backtracking approach. It tries to append each available
+        piece (and its reverse) to the current chain, ensuring the connecting
+        numbers match. A chain is only yielded if it uses all pieces and forms
+        a closed loop (the very first number matches the very last number).
 
-                common = set(self.pieces[piece]) & set(self.pieces[next])
-                if common:  # intersection
-                    common_value = common.pop()
+        Args:
+            pieces: A list of domino pieces (tuples) remaining to be placed.
+            chain: The current sequence of dominoes already connected.
 
-                    if common_value == self.pieces[piece][1]:
-                        self.pieces[piece] = self.swap(self.pieces[piece])
+        Yields:
+            Iterator[list[tuple[int, int]]]: A valid closed domino chain where
+                all pieces are used and the ends match.
+        """
+        if not pieces:
+            if chain and chain[0][0] == chain[-1][1]:
+                yield chain
+            return
 
-                    if common_value == self.pieces[next][0]:
-                        self.pieces[next] = self.swap(self.pieces[next])
+        for index, piece in enumerate(pieces):
+            rest_pieces: list[tuple[int, int]] = pieces[:index] + pieces[index + 1 :]
+            options = [piece] if piece[0] == piece[1] else [piece, (piece[1], piece[0])]
 
-                    return [self.pieces[piece], self.pieces[next]]
-
-        raise ValueError("Pieces don't match")
+            for oriented_piece in options:
+                if not chain:
+                    yield from self.get_chain(rest_pieces, [oriented_piece])
+                else:
+                    if oriented_piece[0] == chain[-1][1]:
+                        yield from self.get_chain(rest_pieces, chain + [oriented_piece])
 
     def can_chain(self) -> list[tuple[int, int]]:
-        corners = self.corner_pieces()
+        """Determines if the collection of dominoes can form a valid closed chain.
 
-        self.pieces.remove(corners[0])
-        self.pieces.remove(corners[1])
+        The method handles edge cases (empty list, single piece) and triggers
+        the recursive search. It attempts to retrieve the first valid solution
+        found by the generator.
 
-        chain = [corners[0]]
+        Returns:
+            list[tuple[int, int]]: The first valid domino chain found.
 
-        while self.pieces:
-            last_piece = chain[-1]
+        Raises:
+            ValueError: If no valid closed chain can be formed with the given pieces.
+        """
+        if not self.pieces:
+            return []
 
-            for piece in self.pieces:
-                if last_piece[1] in piece:
-                    self.pieces.remove(piece)
+        if len(self.pieces) == 1:
+            if self.pieces[0][0] == self.pieces[0][1]:
+                return self.pieces
+            raise ValueError("Cannot")
 
-                    if piece[0] != last_piece[1]:
-                        piece = self.swap(piece)
-
-                    chain.append(piece)
-                    break
-
-        if chain[-1][1] != corners[1][0]:
-            raise ValueError("Cannot complete the chain")
-
-        chain.append(corners[1])
-
-        return chain
+        try:
+            return next(self.get_chain(self.pieces, []))
+        except StopIteration:
+            raise ValueError("Cannot")

@@ -24,7 +24,7 @@ def test_measure_1_3_goal_3_start_two() -> None:
 
 
 def test_measure_2_3_goal_3_start_one_end_TwoBucket_two() -> None:
-    assert TwoBucket(2, 3).measure(3, "one") == (2, "two", 2)
+    assert TwoBucket(2, 3).measure(3, "one") == (4, "two", 1)
 
 
 def test_TwoBucket_one_much_bigger_than_two() -> None:
