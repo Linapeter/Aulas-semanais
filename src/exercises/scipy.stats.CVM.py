@@ -76,8 +76,6 @@ def cvm_manual(x: np.ndarray, params: tuple, distrib: str, plot: bool) -> str:
             1 - poisson.cdf(df["i"] - 1, *params)
         )
 
-        df["h_teo"] = norm.pdf(df["i"], *params) / (1 - norm.cdf(df["i"], *params))
-
     # Log-Rank e CVM
     df["diff"] = df["h_emp"] - df["h_teo"]
     df["LR"] = df["diff"].cumsum()
@@ -115,36 +113,36 @@ def cvm_manual(x: np.ndarray, params: tuple, distrib: str, plot: bool) -> str:
 
 # Negativa binomial
 
-n = 5
-p = 0.3
+# n = 5
+# p = 0.3
 rng = np.random.default_rng(seed=1)
-x = nbinom.rvs(n, p, size=10_000, random_state=rng)
+# x = nbinom.rvs(n, p, size=50, random_state=rng)
 # print(result_cvm(x, "nbinom", (n, p)))
 # plotar_empiric_vs_teoric(x, (n, p), "nbinom")
 # print(cvm_manual(x, (n, p), "nbinom", plot=True))
 
 # desenho teorico NB
-probabilidades = np.linspace(0, 1, 10_000)
-x_teorico = nbinom.ppf(probabilidades, n, p)
+# probabilidades = np.linspace(0, 1, 50)
+# x_teorico = nbinom.ppf(probabilidades, n, p)
 # print(cvm_manual(x_teorico, (n, p), "nbinom", plot=True))
 # print(result_cvm(x_teorico, "nbinom", (n, p)))
 
 # # Poisson
 lamb = 3.5
-# x_poisson = poisson.rvs(lamb, size=10_000, random_state=rng)
-# print(result_cvm(x_poisson, "poisson", (lamb,)))
-# plotar_empiric_vs_teoric(x_poisson, (lamb,), "poisson")
-# print(cvm_manual(x_poisson, (lamb,), "poisson", plot=True))
+x_poisson = poisson.rvs(lamb, size=100, random_state=rng)
+print(result_cvm(x_poisson, "poisson", (lamb,)))
+plotar_empiric_vs_teoric(x_poisson, (lamb,), "poisson")
+print(cvm_manual(x_poisson, (lamb,), "poisson", plot=True))
 
 # # desenho teorico Poisson
-# probabilidades = np.linspace(0, 1, 10_000)
-# x_teorico = poisson.ppf(probabilidades, lamb)
-# print(cvm_manual(x_teorico, (lamb,), "poisson", plot=True))
+probabilidades = np.linspace(0, 1, 100)
+x_teorico = poisson.ppf(probabilidades, lamb)
+print(cvm_manual(x_teorico, (lamb,), "poisson", plot=True))
 
 # normal
-mi = 0
-sd = 1
-x_norm = norm.rvs(size=10_000, random_state=rng)
-res = cramervonmises(x, "norm")
-print(result_cvm(x_norm, "norm", (mi, sd)))
-plotar_empiric_vs_teoric(x_norm, (mi, sd), "norm")
+# mi = 0
+# sd = 1
+# x_norm = norm.rvs(size=10_000, random_state=rng)
+# res = cramervonmises(x, "norm")
+# print(result_cvm(x_norm, "norm", (mi, sd)))
+# plotar_empiric_vs_teoric(x_norm, (mi, sd), "norm")
